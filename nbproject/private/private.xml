@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/projects/GestClicks/src/IHM/DentisteAccueil.java</file>
+            <file>file:/D:/projects/GestClicks/src/IHM/ReceptionisteAccueil.java</file>
+            <file>file:/D:/projects/GestClicks/src/gestclicks/GestClicks.java</file>
+            <file>file:/D:/projects/GestClicks/src/SqlFiles/SQLDB.sql</file>
+            <file>file:/D:/projects/GestClicks/src/Metier/Administrateur.java</file>
+            <file>file:/D:/projects/GestClicks/src/Dao/DaoReceptionniste.java</file>
+            <file>file:/D:/projects/GestClicks/src/IHM/AjoutOperation.java</file>
+            <file>file:/D:/projects/GestClicks/src/Dao/daoPatient.java</file>
+            <file>file:/D:/projects/GestClicks/src/Dao/daoOperation.java</file>
+            <file>file:/D:/projects/GestClicks/src/IHM/RPatient.java</file>
+            <file>file:/D:/projects/GestClicks/src/Metier/PatientModele.java</file>
+            <file>file:/D:/projects/GestClicks/src/IHM/AdministrateurAccueil.java</file>
+            <file>file:/D:/projects/GestClicks/src/Dao/Connexion.java</file>
+            <file>file:/D:/projects/GestClicks/src/IHM/AjouterPatient.java</file>
+            <file>file:/D:/projects/GestClicks/src/Metier/Réceptionniste.java</file>
+            <file>file:/D:/projects/GestClicks/src/Metier/Patient.java</file>
+            <file>file:/D:/projects/GestClicks/src/Dao/DaoDentiste.java</file>
+            <file>file:/D:/projects/GestClicks/src/Metier/Employé.java</file>
+        </group>
+    </open-files>
+</project-private>
