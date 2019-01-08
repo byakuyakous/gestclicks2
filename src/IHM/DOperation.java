@@ -77,6 +77,11 @@ public class DOperation extends javax.swing.JPanel {
         ));
         operationtable.setGridColor(new java.awt.Color(255, 255, 255));
         operationtable.setSelectionBackground(new java.awt.Color(96, 112, 157));
+        operationtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                operationtableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(operationtable);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -177,6 +182,14 @@ public class DOperation extends javax.swing.JPanel {
         AjoutOperation O = new AjoutOperation();
         O.setVisible(true);
     }//GEN-LAST:event_AjouterOperationMouseClicked
+
+    private void operationtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_operationtableMouseClicked
+        ResultSet OpAffichage = Operation.Afficher();
+        OperationModel O = new OperationModel(OpAffichage);
+        operationtable.setModel(O);
+        int selectedrow = operationtable.getSelectedRow();
+        new DOpModification().setVisible(true);
+    }//GEN-LAST:event_operationtableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
