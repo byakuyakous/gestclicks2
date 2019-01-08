@@ -21,6 +21,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
     GridBagLayout layout = new GridBagLayout();
     DOperation Doperation = new DOperation();
     DDefaut Ddefault = new DDefaut();
+    DEspacePatient EspaceP = new DEspacePatient();
     /**
      * Creates new form Dentiste
      */
@@ -35,6 +36,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
         c.gridy=0;
         DynamicPanel.add(Ddefault, c);
         DynamicPanel.add(Doperation, c);
+        DynamicPanel.add(EspaceP, c);
         Ddefault.setVisible(true);
     }
 
@@ -319,6 +321,9 @@ public class DentisteAccueil extends javax.swing.JFrame {
 
         GestPanel2.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanel2MouseEntered(evt);
             }
@@ -333,7 +338,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
         TextLabel2.setBackground(new java.awt.Color(255, 255, 255));
         TextLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         TextLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        TextLabel2.setText("     Rendez-vous");
+        TextLabel2.setText("     Espace Patient");
 
         ImgLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/RV2.png"))); // NOI18N
 
@@ -622,6 +627,12 @@ public class DentisteAccueil extends javax.swing.JFrame {
         Ddefault.setVisible(true);
         Doperation.setVisible(false);
     }//GEN-LAST:event_GestPanel1MouseClicked
+
+    private void GestPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseClicked
+        Ddefault.setVisible(false);
+        Doperation.setVisible(false);
+        EspaceP.setVisible(true);
+    }//GEN-LAST:event_GestPanel2MouseClicked
 
     /**
      * @param args the command line arguments

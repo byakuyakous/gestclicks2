@@ -48,7 +48,7 @@ public class daoOperation {
               { 
                 
                 St=Con.createStatement();
-                Resultat=St.executeQuery("select * from operer");
+                Resultat=St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer");
                 System.out.println("Affichage des operations : ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

@@ -6,7 +6,10 @@
 
 package IHM;
 
+import Dao.daoOperation;
+import Metier.OperationModel;
 import java.awt.Color;
+import java.sql.ResultSet;
 
 /**
  *
@@ -14,9 +17,17 @@ import java.awt.Color;
  */
 public class DOperation extends javax.swing.JPanel {
 
+     daoOperation Operation = new daoOperation();
     /** Creates new form DOperation */
     public DOperation() {
-        initComponents(); 
+        initComponents();
+        Affichage();
+    }
+    public void Affichage()
+    {
+      ResultSet OpAffichage = Operation.Afficher();
+      operationtable.setModel(new OperationModel(OpAffichage));
+ 
     }
 
     /** This method is called from within the constructor to
@@ -29,7 +40,7 @@ public class DOperation extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        operationtable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         AjouterOperation = new javax.swing.JLabel();
@@ -39,34 +50,34 @@ public class DOperation extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setForeground(new java.awt.Color(102, 102, 102));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        operationtable.setForeground(new java.awt.Color(102, 102, 102));
+        operationtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zegg", "geg", "nl", "no", "p,p"},
-                {"p", "inp", "innp", "p", "i,"},
-                {"pio", "pin", "pin", "pin", "pin"},
-                {"p", "in", "pin", "pi", "np"},
-                {"in", "pin", "pi", "nn", "pin"},
-                {"pin", "pi", "np", "in", "pin"},
-                {"pin", "p", "in", "pin", "pi"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {"zegg", "geg", "nl", "no"},
+                {"p", "inp", "innp", "p"},
+                {"pio", "pin", "pin", "pin"},
+                {"p", "in", "pin", "pi"},
+                {"in", "pin", "pi", "nn"},
+                {"pin", "pi", "np", "in"},
+                {"pin", "p", "in", "pin"},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Dentiste", "Patient", "Type", "Date", "Remarques"
+                "Dentiste", "Patient", "Type", "Date"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionBackground(new java.awt.Color(96, 112, 157));
-        jScrollPane1.setViewportView(jTable1);
+        operationtable.setGridColor(new java.awt.Color(255, 255, 255));
+        operationtable.setSelectionBackground(new java.awt.Color(96, 112, 157));
+        jScrollPane1.setViewportView(operationtable);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,7 +103,7 @@ public class DOperation extends javax.swing.JPanel {
         AjouterOperation.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         AjouterOperation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/ajouttooth.png"))); // NOI18N
         AjouterOperation.setText(" Ajouter Operation");
-        AjouterOperation.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AjouterOperation.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         AjouterOperation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AjouterOperationMouseClicked(evt);
@@ -176,7 +187,7 @@ public class DOperation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable operationtable;
     // End of variables declaration//GEN-END:variables
 
 }
