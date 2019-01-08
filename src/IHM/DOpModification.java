@@ -5,6 +5,7 @@
  */
 package IHM;
 
+import Dao.daoOperation;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -12,15 +13,25 @@ import javax.swing.JFrame;
  *
  * @author hatim
  */
-public class DOpModification extends javax.swing.JFrame {
+public class DOpModification extends javax.swing.JDialog {
     int xMouse;
     int yMouse;
+    daoOperation D =new daoOperation();
+    DOperation Dp;
     /**
      * Creates new form DOpModification
      */
     public DOpModification() {
         initComponents();
         this.setLocationRelativeTo(null);
+        OPIDpatient.setEnabled(false);
+    }
+      public DOpModification(String Patient,String Type, String Remarque,DOperation D) {
+        this();
+        OPIDpatient.setText(Patient);
+        OPRemarques.setText(Remarque);
+        OPTypeop.setText(Type);
+        Dp=D;
     }
 
     /**
@@ -52,7 +63,7 @@ public class DOpModification extends javax.swing.JFrame {
         Valider = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setAlwaysOnTop(true);
         setUndecorated(true);
 
@@ -332,7 +343,7 @@ public class DOpModification extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitpanelMouseExited
 
     private void ReducepanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReducepanelMouseClicked
-        this.setState(JFrame.ICONIFIED);
+        //this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_ReducepanelMouseClicked
 
     private void ReducepanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReducepanelMouseEntered
@@ -369,7 +380,15 @@ public class DOpModification extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void ValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseClicked
-       
+
+        String idd = OPRemarques.getText();
+        String r = OPTypeop.getText();
+        String idp = OPIDpatient.getText();
+        OPIDpatient.setEnabled(false);
+        D.Modifier(idd, r,idp);
+        Dp.Affichage();
+        dispose();
+        
     }//GEN-LAST:event_ValiderMouseClicked
 
     private void ValiderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseEntered
