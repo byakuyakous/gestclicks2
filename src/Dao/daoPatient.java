@@ -56,6 +56,32 @@ public class daoPatient {
         }
         return Rs;
     }
+      public ResultSet ReadD(String idD)//hatim
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select ID_PATIENT,NOM,PRENOM,SEXE,TELEPHONE from patient where id_Dentiste='"+idD+"'");
+            System.out.println("affichage default");
+            
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+    }
+        public ResultSet Filtrer(String idD)//hatim
+    {    
+        ResultSet Rs=null;
+        try {
+            String Res = idD+"%";
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select NOM,PRENOM,SEXE,TELEPHONE from patient where Nom like '"+Res+"'");
+            
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+    }
     public ResultSet ReadAll()
     {    
         ResultSet Rs=null;

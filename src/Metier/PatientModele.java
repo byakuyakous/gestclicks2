@@ -71,7 +71,7 @@ public class PatientModele extends AbstractTableModel {
        return MesLignes.get(rowIndex).get(columnIndex);
     }
 
-    //@Override
+    @Override
    public String getColumnName(int column) {
          return Titres[column];
     }

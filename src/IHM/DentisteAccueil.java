@@ -8,6 +8,7 @@ package IHM;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -38,6 +39,12 @@ public class DentisteAccueil extends javax.swing.JFrame {
         DynamicPanel.add(Doperation, c);
         DynamicPanel.add(EspaceP, c);
         Ddefault.setVisible(true);
+        Doperation.setVisible(false);
+        EspaceP.setVisible(false);
+        setIcon();
+    }
+    private void setIcon() {
+       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imgs/iconacceuil.png")));
     }
 
     /**

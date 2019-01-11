@@ -7,17 +7,14 @@ package IHM;
 
 import Dao.daoOperation;
 import Metier.OperationModel;
-import com.sun.rowset.internal.Row;
 import java.awt.Color;
 import java.awt.Dialog;
-import java.awt.Point;
 import java.sql.ResultSet;
-import javax.swing.RowFilter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -27,14 +24,24 @@ public class DOperation extends javax.swing.JPanel {
 
     daoOperation Operation = new daoOperation();
     OperationModel O = new OperationModel();
-
+    
     /**
      * Creates new form DOperation
      */
     public DOperation() {
         initComponents();
-        Affichage();
-        /* code filtre
+        Affichage(); 
+        Filtrer(); 
+        NombreOperation();
+    }
+
+    public void Affichage() {
+        ResultSet OpAffichage = Operation.Afficher();
+        operationtable.setModel(new OperationModel(OpAffichage));
+
+    }
+    public void Filtrer()
+    {
         Rechercher.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 warn();
@@ -49,31 +56,34 @@ public class DOperation extends javax.swing.JPanel {
             }
 
             public void warn() {
-                System.out.println(Rechercher.getText());
-                if(Rechercher.getText()!=" "){
-                   ResultSet res = Operation.AfficherById(Rechercher.getText());
-                    operationtable.setModel(new OperationModel(res));
+                
+                if(Rechercher.getText()== null && Rechercher.getText().equals("Recherher...")){
+                   Affichage();
                 }
-                else{                     
-                     Affichage();
+                else{   
+                    ResultSet res = Operation.Filtrer(Rechercher.getText());
+                    operationtable.setModel(new OperationModel(res));
+                     
                 }
             }
         });
-        fin du filtre*/ 
     }
-
-    public void Affichage() {
-        ResultSet OpAffichage = Operation.Afficher();
-        operationtable.setModel(new OperationModel(OpAffichage));
-
+    public void NombreOperation()
+    {
+        
+        try {
+            ResultSet nbrOp = Operation.NombreOp();
+            nbrOp.next();
+             this.nbrOp.setText(nbrOp.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(DOperation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    public void filter(String query) {
-        TableRowSorter<OperationModel> tr = new TableRowSorter<OperationModel>(O);
-        operationtable.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(query));
+    public void setPlaceholder()
+    {
+          Rechercher.setText("Recherher...");
+        Rechercher.setForeground(new Color(240,240,240));
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,6 +102,7 @@ public class DOperation extends javax.swing.JPanel {
         Rechercher = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        nbrOp = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -177,7 +188,7 @@ public class DOperation extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabel4.setText("Nombre d'operations : 24");
+        jLabel4.setText("Nombre d'operations :");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/refresh-button.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,21 +204,23 @@ public class DOperation extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 201, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nbrOp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(AjouterOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Rechercher, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(1, 1, 1))
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 174, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -215,26 +228,28 @@ public class DOperation extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nbrOp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(AjouterOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
                         .addComponent(Rechercher, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void RechercherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercherMouseClicked
-        Rechercher.setText("");
+        Rechercher.setText(null);
         Rechercher.setForeground(Color.BLACK);
     }//GEN-LAST:event_RechercherMouseClicked
 
@@ -244,15 +259,20 @@ public class DOperation extends javax.swing.JPanel {
     }//GEN-LAST:event_AjouterOperationMouseClicked
 
     private void operationtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_operationtableMouseClicked
-        int row = operationtable.getSelectedRow();
-        if (row != -1) {
-            String patient = operationtable.getValueAt(row, 0).toString();
-            String type = operationtable.getValueAt(row, 1).toString();
-            String remarque = operationtable.getValueAt(row, 3).toString();
-            DOpModification DopModif = new DOpModification(patient, type, remarque, this);
-            DopModif.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-            DopModif.setVisible(true);
+
+        if (evt.getClickCount() == 2) {
+
+            int row = operationtable.getSelectedRow();
+            if (row != -1) {
+                String patient = operationtable.getValueAt(row, 0).toString();
+                String type = operationtable.getValueAt(row, 1).toString();
+                 String remarque = operationtable.getValueAt(row, 3).toString();
+                DOpModification DopModif = new DOpModification(patient, type, remarque, this);
+                DopModif.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                DopModif.setVisible(true);
+            }
         }
+
 
     }//GEN-LAST:event_operationtableMouseClicked
 
@@ -276,6 +296,7 @@ public class DOperation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nbrOp;
     private javax.swing.JTable operationtable;
     // End of variables declaration//GEN-END:variables
 

@@ -56,9 +56,31 @@ public class daoOperation {
         try {
             St = Con.createStatement();
             Resultat = St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer where id_patient='" + id + "'");
-
         } catch (SQLException ex) {
             System.err.println("==>" + ex.getMessage());
+        }
+        return Resultat;
+    }
+
+    public ResultSet Filtrer(String id) {
+        ResultSet Resultat = null;
+        try {
+            String Like = id + "%";
+            St = Con.createStatement();
+            Resultat = St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer where id_patient like '" + Like + "'");
+        } catch (SQLException ex) {
+            System.err.println("==>" + ex.getMessage());
+        }
+        return Resultat;
+    }
+
+    public ResultSet NombreOp() {
+        ResultSet Resultat = null;
+        try {
+            St = Con.createStatement();
+            Resultat = St.executeQuery("select count(*) from operer");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
         return Resultat;
     }

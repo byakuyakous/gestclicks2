@@ -386,6 +386,7 @@ public class DOpModification extends javax.swing.JDialog {
         String idp = OPIDpatient.getText();
         OPIDpatient.setEnabled(false);
         D.Modifier(idd, r,idp);
+        Dp.setPlaceholder();
         Dp.Affichage();
         dispose();
         
