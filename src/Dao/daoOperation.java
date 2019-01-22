@@ -41,20 +41,19 @@ public class daoOperation {
         }   
       
     }
-        public ResultSet Afficher() 
-    {
-        ResultSet Resultat=null;
-            try
-              { 
-                
-                St=Con.createStatement();
-                Resultat=St.executeQuery("select * from operer");
-                System.out.println("Affichage des operations : ");
+    public ResultSet Afficher() {
+        ResultSet Resultat = null;
+        try {
+
+            St = Con.createStatement();
+            Resultat = St.executeQuery("select * from operer");
+            System.out.println("Affichage des operations : ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }   
       return Resultat;
     }
+    
               public void AfficherById(String id) 
     {
             try

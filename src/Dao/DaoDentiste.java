@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,12 +21,10 @@ import java.sql.Statement;
 public class DaoDentiste {
     private Connection Con;
     private Statement St;
-    private Connexion dao;
     
  
     public DaoDentiste() {
-        dao=new Connexion();
-        Con= dao.seConnecter();
+        Con= new Connexion().seConnecter();
     }
     
     public void Ajouter(String ID_EMPLOYE, String LOGIN, String CIN, String NOM, String PRENOM, String SEXE, String TELEPHONE, String EMAIL, Date DATE_NAISSANCE,Date DATE__D_EMBAUCHE)
@@ -50,21 +50,23 @@ public class DaoDentiste {
     }
     
     public  void Afficher(){
-        ResultSet Res;
+        ResultSet Res=null;
         try
         {
             St = Con.createStatement();
-            Res=St.executeQuery("Select * from dentiste;");
-            System.out.println("Affichage des dentistes :  ");
-            while(Res.next())
+            Res=St.executeQuery("Select * from dentiste");
+              while(Res.next())
             {
-                System.out.println(Res.getString(1)+" "+Res.getString(2)+" "+Res.getString(3)+" "+Res.getString(4)+" "+Res.getString(5)+" "+Res.getString(6)+" "+Res.getString(7)+" "+Res.getString(8)+" "+Res.getDate(9)+" "+Res.getDate(10));
+                System.out.println(Res.getString(1)+" "+Res.getString(2)+" "+Res.getString(3)+" "+Res.getString(4)+
+         " "+Res.getString(5)+" "+Res.getString(6)+" "+Res.getString(7)+" "+Res.getString(8)+" "+Res.getDate(9)+" "+Res.getDate(10));
             }
+            
         }
         catch (SQLException ex) 
         {
             System.err.println("Requete afficher erronnée !! "+ ex.getMessage());
         }
+        
     }
     
     public void Supprimer(String id)
@@ -117,5 +119,17 @@ public class DaoDentiste {
             System.err.println("Afficher_by_ID a generé des erreurs !! "+ ex.getMessage());
         }
     }
-    
+    public ResultSet dentisteNames()
+    {ResultSet Rs=null;
+        try {
+            
+            St=Con.createStatement();
+            Rs=St.executeQuery("select nom,prenom from dentiste");
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoDentiste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Rs;
+    }
+     
 }
+

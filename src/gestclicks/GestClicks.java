@@ -8,6 +8,11 @@ import Dao.*;
 import Metier.Patient;
 import Metier.Réceptionniste;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -23,9 +28,8 @@ public class GestClicks {
         
         Patient P;
         
-        P = new Patient("1","2","3","aaa","bbbb","4444","f",Date.valueOf("1888-04-08"),new Date(144444),"0555","aeaz","A+");
-       daoPatient R=new daoPatient();
-       R.Delete("1");
+       DaoDentiste d=new DaoDentiste();
+       d.Afficher();    
         
     }
     
