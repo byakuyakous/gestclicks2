@@ -6,10 +6,11 @@
 package IHM;
 
 import Dao.daoPatient;
-import Metier.PatientModelDentiste;
+import Metier.PatientDentisteModel;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -30,14 +31,24 @@ public class DDefaut extends javax.swing.JPanel {
     public DDefaut() {
         initComponents();
         Affichage();
+        nbrPatients();
         Filtrer();
         timer();
        
     }
       public void Affichage() {
         ResultSet Res = Patient.ReadD("Dentiste");
-        MesPatients.setModel( new PatientModelDentiste(Res));
+        MesPatients.setModel(new PatientDentisteModel(Res));
     }
+      public void nbrPatients(){
+       try {
+            ResultSet nbrOp = Patient.Nombrepat();
+            nbrOp.next();
+             this.nbrOp.setText(nbrOp.getString(1));
+        } catch (SQLException ex) {
+           System.out.println(ex.getMessage());
+        }
+      }
     public void Filtrer()
     {
         RechercherP.getDocument().addDocumentListener(new DocumentListener() {
@@ -60,7 +71,7 @@ public class DDefaut extends javax.swing.JPanel {
                 }
                 else{   
                     ResultSet res = Patient.Filtrer(RechercherP.getText());
-                    MesPatients.setModel(new PatientModelDentiste(res));
+                    MesPatients.setModel(new PatientDentisteModel(res));
                      
                 }
             }
@@ -146,6 +157,7 @@ public class DDefaut extends javax.swing.JPanel {
         Date = new javax.swing.JLabel();
         Time = new javax.swing.JLabel();
         AmPm = new javax.swing.JLabel();
+        nbrOp = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,7 +209,7 @@ public class DDefaut extends javax.swing.JPanel {
         jScrollPane1.setViewportView(MesPatients);
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabel4.setText("Nombre de patients : 24");
+        jLabel4.setText("Nombre de patients : ");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/lp.png"))); // NOI18N
 
@@ -224,42 +236,47 @@ public class DDefaut extends javax.swing.JPanel {
 
         AmPm.setText("AM");
 
+        nbrOp.setText("12");
+
         javax.swing.GroupLayout AcceuilPanelLayout = new javax.swing.GroupLayout(AcceuilPanel);
         AcceuilPanel.setLayout(AcceuilPanelLayout);
         AcceuilPanelLayout.setHorizontalGroup(
             AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AcceuilPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
                     .addGroup(AcceuilPanelLayout.createSequentialGroup()
                         .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                            .addGroup(AcceuilPanelLayout.createSequentialGroup()
+                                .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AmPm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4))
+                            .addGroup(AcceuilPanelLayout.createSequentialGroup()
+                                .addGap(291, 291, 291)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(AcceuilPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(RechercherP, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)))
-                        .addGap(8, 8, 8))
-                    .addGroup(AcceuilPanelLayout.createSequentialGroup()
-                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(RechercherP, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AmPm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)))
-                .addContainerGap())
-            .addGroup(AcceuilPanelLayout.createSequentialGroup()
-                .addGap(301, 301, 301)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(nbrOp))))
+                .addGap(18, 18, 18))
         );
         AcceuilPanelLayout.setVerticalGroup(
             AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AcceuilPanelLayout.createSequentialGroup()
                 .addGap(0, 12, Short.MAX_VALUE)
                 .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(nbrOp))
                     .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Date)
                         .addComponent(Time)
@@ -307,9 +324,10 @@ public class DDefaut extends javax.swing.JPanel {
 
             int row = MesPatients.getSelectedRow();
             if (row != -1) {
-                String Nom = MesPatients.getValueAt(row, 0).toString();
-                String Prenom = MesPatients.getValueAt(row, 1).toString();
-                new DAffichagePatients(Nom,Prenom).setVisible(true);
+                String Id =MesPatients.getValueAt(row, 0).toString();
+                String Nom = MesPatients.getValueAt(row, 1).toString();
+                String Prenom = MesPatients.getValueAt(row, 2).toString();
+                new DAffichagePatients(Nom,Prenom,Id).setVisible(true);
             }
         }
     }//GEN-LAST:event_MesPatientsMouseClicked
@@ -326,5 +344,6 @@ public class DDefaut extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nbrOp;
     // End of variables declaration//GEN-END:variables
 }
