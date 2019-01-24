@@ -220,7 +220,7 @@ create table DONNER_CERTIFICAT
    ID_DENTISTE                    varchar(20)                    not null,
    DATECERTIFICAT                 date,
    DESCRIPTION                    varchar(300),
-   primary key (ID_PATIENT, ID_DENTISTE)
+   primary key (ID_PATIENT, ID_DENTISTE,DATECERTIFICAT)
 )
 ENGINE = Innodb;
 
@@ -249,7 +249,7 @@ create table DONNER_ORD
    ID_DENTISTE                    varchar(20)                    not null,
    DATEORD                        date,
    DESCRIPTION                    varchar(300),
-   primary key (ID_PATIENT, ID_DENTISTE)
+   primary key (ID_PATIENT, ID_DENTISTE,DATEORD )
 )
 ENGINE = Innodb;
 
@@ -279,7 +279,7 @@ create table OPERER
    TYPEOP                         varchar(30),
    DATEOP                         date,
    REMARQUES                      varchar(200),
-   primary key (ID_PATIENT, ID_DENTISTE)
+   primary key (ID_PATIENT, ID_DENTISTE,DATEOP)
 )
 ENGINE = Innodb;
 
@@ -373,9 +373,9 @@ create table RENDEZ_VOUS
    ID_RECEPTIONNISTE              varchar(20)                    not null,
    ID_PATIENT                     varchar(20)                    not null,
    DATERDV                        date,
-   HEURERDV                       date,
+   HEURERDV                       time,
    ANNULATION                     bool,
-   primary key (ID_RECEPTIONNISTE, ID_PATIENT)
+   primary key (ID_RECEPTIONNISTE, ID_PATIENT, DATERDV )
 )
 ENGINE = Innodb;
 
