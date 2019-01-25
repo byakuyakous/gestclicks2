@@ -21,7 +21,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
     int yMouse;
     GridBagLayout layout = new GridBagLayout();
     DOperation Doperation = new DOperation();
-    DDefaut Ddefault = new DDefaut();
+    DDefautPan Ddefault = new DDefautPan();
     DEspacePatient EspaceP = new DEspacePatient();
     /**
      * Creates new form Dentiste

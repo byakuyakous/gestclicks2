@@ -23,12 +23,12 @@ import javax.swing.event.DocumentListener;
  *
  * @author hatim
  */
-public class DDefaut extends javax.swing.JPanel {
+public class DDefautPan extends javax.swing.JPanel {
     daoPatient Patient = new daoPatient();
     /**
      * Creates new form DDefaut
      */
-    public DDefaut() {
+    public DDefautPan() {
         initComponents();
         Affichage();
         nbrPatients();
@@ -37,7 +37,7 @@ public class DDefaut extends javax.swing.JPanel {
        
     }
       public void Affichage() {
-        ResultSet Res = Patient.ReadD("Dentiste");
+        ResultSet Res = Patient.ReadD("12");
         MesPatients.setModel(new PatientDentisteModel(Res));
     }
       public void nbrPatients(){

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Abdelkrim
  */
 public class daoPatient {
-
+    private Statement St;
     Connection Con = new Connexion().seConnecter();
 
     public void Create(Patient P) {
@@ -75,12 +75,24 @@ public class daoPatient {
         try {
             String Res = idD+"%";
             Statement st=Con.createStatement();
-            Rs=st.executeQuery("select NOM,PRENOM,SEXE,TELEPHONE from patient where Nom like '"+Res+"'");
+            Rs=st.executeQuery("select ID_PATIENT,NOM,PRENOM,SEXE,TELEPHONE from patient where Nom like '"+Res+"' or Prenom like '"+Res+"' ");
             
         } catch (SQLException ex) {
               System.err.println(ex.getMessage());
         }
         return Rs;
+    }
+           public ResultSet Nombrepat() //hatim
+           {
+        ResultSet Resultat = null;
+        try {
+            St = Con.createStatement();
+            String D="12";
+            Resultat = St.executeQuery("select count(*) from patient where id_dentiste='" + D + "'");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return Resultat;
     }
     public ResultSet ReadAll()
     {    
@@ -88,6 +100,18 @@ public class daoPatient {
         try {
             Statement st=Con.createStatement();
             Rs=st.executeQuery("select id_patient,nom,prenom,telephone,id_dentiste from patient ")  ;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Rs;
+    }
+      public ResultSet ReadPatientForDentiste(String id)
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select cin,date_naissance,email,type_de_sang,sexe,telephone from patient where id_patient='"+id+"'");
             
         } catch (SQLException ex) {
             Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);

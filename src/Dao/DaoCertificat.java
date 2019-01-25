@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,23 +19,23 @@ import javax.swing.JOptionPane;
  * @author hatim
  */
 
-public class DaoOrdonance {
+public class DaoCertificat {
     Connection Conn=new Connexion().seConnecter();
     Statement St;
-    
      public void Create(String idP,String idD,Date D,String des) {
         PreparedStatement st;
         try {
-            st = Conn.prepareStatement("insert into donner_ord values(?,?,?,?)");
-            st.setString(1,idP);
-            st.setString(2,idD);
+            st = Conn.prepareStatement("insert into donner_certificat values(?,?,?,?)");
+            st.setString(1, idP);
+            st.setString(2,idD );
             st.setDate(3, D);
             st.setString(4, des);
             st.execute();
-            System.out.println("Ordonance succes !");
+            System.out.println("Certificat succes !");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Champ deja existant","Avertissement", 0);
+            JOptionPane.showMessageDialog(null, "Erreur lors de la creation","Avertissement", 0);
+            
         }
     }
        public ResultSet Read(String idA)
@@ -42,18 +43,18 @@ public class DaoOrdonance {
         ResultSet Rs=null;
         try {
             Statement st=Conn.createStatement();
-            Rs=st.executeQuery("select P.nom,O.dateord,O.Description  from donner_ord O,patient P where P.id_patient=O.id_patient and O.id_dentiste="+idA );
+            Rs=st.executeQuery("select P.nom,C.datecertificat,C.Description  from donner_certificat C,patient P where P.id_patient=C.id_patient and c.id_dentiste="+idA);
             
         } catch (SQLException ex) {
               System.err.println(ex.getMessage());
         }
         return Rs;
     }
-         public ResultSet NombreOrd(String idD) {
+           public ResultSet NombreCertif(String idD) {
         ResultSet Resultat = null;
         try {
             St = Conn.createStatement();
-            Resultat = St.executeQuery("select count(*) from donner_ord where id_dentiste="+idD);
+            Resultat = St.executeQuery("select count(*) from donner_certificat where id_dentiste="+idD);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -65,7 +66,7 @@ public class DaoOrdonance {
         ResultSet Rs=null;
         try {
             Statement st=Conn.createStatement();
-            Rs=st.executeQuery("select * from donner_ord ")  ;
+            Rs=st.executeQuery("select * from donner_certificat ")  ;
             
         } catch (SQLException ex) {
            System.err.println(ex.getMessage());

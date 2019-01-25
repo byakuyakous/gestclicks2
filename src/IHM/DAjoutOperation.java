@@ -13,27 +13,32 @@ import javax.swing.JOptionPane;
  *
  * @author hatim
  */
-public class AjoutOperation extends javax.swing.JFrame {
+public class DAjoutOperation extends javax.swing.JFrame {
     daoOperation Operation = new daoOperation();
     DOperation D ;
+    DAffichagePatients P;
+    String idp;
     int xMouse;
     int yMouse;
     /**
      * Creates new form AjoutOperation
      */
-    public AjoutOperation() {
+    public DAjoutOperation() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-     public AjoutOperation(DOperation Do) {
+     public DAjoutOperation(DOperation Do) {
        this();
        D=Do;
     }
+       public DAjoutOperation(DAffichagePatients Do,String id) {
+       this();
+       P=Do;
+       idp=id;
+    }
     public void Reinitialiser()
     {
-        OPIDpatient.setText("");
         OPRemarques.setText("");
-        OPTypeop.setText("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,17 +57,15 @@ public class AjoutOperation extends javax.swing.JFrame {
         ExitPanel1 = new javax.swing.JLabel();
         NpLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        OPIDpatient = new javax.swing.JTextField();
-        OPTypeop = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         OPRemarques = new javax.swing.JTextArea();
         Reinitialiser = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Valider = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        OPTypeop = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -174,20 +177,11 @@ public class AjoutOperation extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel1.setText("Patient Opéré");
-
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel2.setText("Type Operation");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setText("Remarques");
-
-        OPTypeop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OPTypeopActionPerformed(evt);
-            }
-        });
 
         OPRemarques.setColumns(20);
         OPRemarques.setRows(5);
@@ -250,56 +244,55 @@ public class AjoutOperation extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        OPTypeop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultation", "Carrie", "Chirurgie", "Detartrage", "Blanchissement", " ", " " }));
+        OPTypeop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        OPTypeop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OPTypeopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(OPTypeop, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(OPIDpatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Reinitialiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 60, Short.MAX_VALUE)
+                        .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Reinitialiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OPTypeop, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(OPIDpatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(OPTypeop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Valider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Reinitialiser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96))
+                    .addComponent(Reinitialiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -315,7 +308,7 @@ public class AjoutOperation extends javax.swing.JFrame {
                 .addComponent(TopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(84, 84, 84))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,7 +319,9 @@ public class AjoutOperation extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -373,14 +368,8 @@ public class AjoutOperation extends javax.swing.JFrame {
         yMouse=evt.getY();
     }//GEN-LAST:event_TopPanelMousePressed
 
-    private void OPTypeopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPTypeopActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OPTypeopActionPerformed
-
     private void ReinitialiserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReinitialiserMouseClicked
-        OPIDpatient.setText("");
-        OPRemarques.setText("");
-        OPTypeop.setText("");
+      Reinitialiser();
         
     }//GEN-LAST:event_ReinitialiserMouseClicked
 
@@ -397,17 +386,20 @@ public class AjoutOperation extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("/Imgs/certificats.png");
         int reponse = JOptionPane.showConfirmDialog(null, "Confirmer l'ajout ! ", "Avis", JOptionPane.YES_NO_OPTION);
         if (reponse == JOptionPane.YES_OPTION) {
-            java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            String Iddentiste = OPIDpatient.getText().toString();
-            String typeoperation = OPTypeop.getText().toString();
+            java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); 
+            String typeoperation = OPTypeop.getSelectedItem().toString();
             String remarques = OPRemarques.getText().toString();
-            Operation.Ajouter("12", Iddentiste, typeoperation, Date, remarques);
+            Operation.Ajouter(idp,"12", typeoperation, Date, remarques);
             Reinitialiser();
             dispose();
-            D.Affichage();
-            D.NombreOperation();
+            P.AffichageOp(idp);
+            
         }
     }//GEN-LAST:event_ValiderMouseClicked
+
+    private void OPTypeopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPTypeopActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OPTypeopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,21 +418,23 @@ public class AjoutOperation extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DAjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DAjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DAjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DAjoutOperation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AjoutOperation().setVisible(true);
+                new DAjoutOperation().setVisible(true);
             }
         });
     }
@@ -450,14 +444,12 @@ public class AjoutOperation extends javax.swing.JFrame {
     private javax.swing.JLabel ExitPanel1;
     private javax.swing.JPanel Exitpanel;
     private javax.swing.JLabel NpLabel1;
-    private javax.swing.JTextField OPIDpatient;
     private javax.swing.JTextArea OPRemarques;
-    private javax.swing.JTextField OPTypeop;
+    private javax.swing.JComboBox<String> OPTypeop;
     private javax.swing.JPanel Reducepanel;
     private javax.swing.JPanel Reinitialiser;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JPanel Valider;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

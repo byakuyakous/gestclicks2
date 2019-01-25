@@ -72,7 +72,7 @@ public class DOperation extends javax.swing.JPanel {
     {
         
         try {
-            ResultSet nbrOp = Operation.NombreOp();
+            ResultSet nbrOp = Operation.NombreOp("12");
             nbrOp.next();
              this.nbrOp.setText(nbrOp.getString(1));
         } catch (SQLException ex) {
@@ -254,7 +254,7 @@ public class DOperation extends javax.swing.JPanel {
     }//GEN-LAST:event_RechercherMouseClicked
 
     private void AjouterOperationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AjouterOperationMouseClicked
-        AjoutOperation O = new AjoutOperation(this);
+        DAjoutOperation O = new DAjoutOperation(this);
         O.setVisible(true);
     }//GEN-LAST:event_AjouterOperationMouseClicked
 

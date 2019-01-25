@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package IHM;
-import Dao.daoAllérgie;
-import Dao.daoAntécédant;
-import Dao.daoPatient;
-import Metier.AllergieModele;
-import Metier.AntecedantModel;
+import Dao.*;
+import Metier.*;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +20,8 @@ public class DAffichagePatients extends javax.swing.JFrame {
     daoPatient Patient = new daoPatient();
     daoAllérgie Allergie = new daoAllérgie();
     daoAntécédant Antecedant =new daoAntécédant();
+    daoOperation Operation = new daoOperation();
+    String idPatient;
     /**
      * Creates new form DAffichagePatients
      */
@@ -33,6 +32,7 @@ public class DAffichagePatients extends javax.swing.JFrame {
         public DAffichagePatients(String nom , String prenom,String id) {
          this();
         try {
+            idPatient=id;
             Nom.setText(nom);
             Prenom.setText(prenom);
             ResultSet Res = Patient.ReadPatientForDentiste(id);
@@ -44,6 +44,7 @@ public class DAffichagePatients extends javax.swing.JFrame {
             Sexe.setText(Res.getString("SEXE"));
             TypeS.setText(Res.getString("TYPE_DE_SANG"));
             Affichage(id);
+            AffichageOp(id);
             
         } catch (SQLException ex) {
             Logger.getLogger(DAffichagePatients.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,6 +55,12 @@ public class DAffichagePatients extends javax.swing.JFrame {
             ResultSet Res2 = Antecedant.ReadpatientAntecedant(id);
             Allergies.setModel(new AllergieModele(Res));
             Antecedants.setModel(new AntecedantModel(Res2));
+           
+        }
+        public void AffichageOp(String id)
+        {
+              ResultSet Res3 = Operation.AfficherById(id);
+               Operations.setModel(new OperationModelAffichagePatient(Res3));
         }
 
     /**
@@ -92,9 +99,13 @@ public class DAffichagePatients extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         Allergies = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        Certificat = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Operations = new javax.swing.JTable();
+        AjouterOperation = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -225,25 +236,32 @@ public class DAffichagePatients extends javax.swing.JFrame {
 
         Cin.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Cin.setText("test");
+        Cin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         Sexe.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Sexe.setText("test");
+        Sexe.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         Date.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Date.setText("test");
+        Date.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         Tel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Tel.setText("test");
+        Tel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         TypeS.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         TypeS.setText("test");
+        TypeS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         Mail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         Mail.setText("test");
+        Mail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel7.setText("Allergies");
 
+        Antecedants.setForeground(new java.awt.Color(102, 102, 102));
         Antecedants.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"TypeA", "FFQSFQFdqvqcdqscqscqscqscqscqscqscqscqsscscqsscqscqscqs"},
@@ -256,11 +274,13 @@ public class DAffichagePatients extends javax.swing.JFrame {
             }
         ));
         Antecedants.setGridColor(new java.awt.Color(255, 255, 255));
+        Antecedants.setSelectionBackground(new java.awt.Color(96, 112, 157));
         jScrollPane2.setViewportView(Antecedants);
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel8.setText("Antecedants");
 
+        Allergies.setForeground(new java.awt.Color(102, 102, 102));
         Allergies.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"TypeA", "FFQSFQFdqvqcdqscqscqscqscqscqscqscqscqsscscqsscqscqscqs"},
@@ -273,15 +293,56 @@ public class DAffichagePatients extends javax.swing.JFrame {
             }
         ));
         Allergies.setGridColor(new java.awt.Color(255, 255, 255));
+        Allergies.setSelectionBackground(new java.awt.Color(204, 204, 255));
         jScrollPane3.setViewportView(Allergies);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/clinic-history.png"))); // NOI18N
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/health-report.png"))); // NOI18N
+        Certificat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/health-report.png"))); // NOI18N
+        Certificat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CertificatMouseClicked(evt);
+            }
+        });
 
         jLabel11.setText("Prescrire ordonance");
 
         jLabel12.setText("Certificat médical");
+
+        jLabel13.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel13.setText("Operation effectuées");
+
+        Operations.setForeground(new java.awt.Color(102, 102, 102));
+        Operations.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"TypeA", "FFQSFQFdqvqcdqscqscqscqscqscqscqscqscqsscscqsscqscqscqs", null},
+                {"FQFSF", "FSQF", null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Type", "Designation", "Title 3"
+            }
+        ));
+        Operations.setGridColor(new java.awt.Color(255, 255, 255));
+        Operations.setSelectionBackground(new java.awt.Color(96, 112, 157));
+        jScrollPane4.setViewportView(Operations);
+
+        AjouterOperation.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        AjouterOperation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/ajouttooth.png"))); // NOI18N
+        AjouterOperation.setText(" Ajouter Operation");
+        AjouterOperation.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        AjouterOperation.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AjouterOperationMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -305,36 +366,43 @@ public class DAffichagePatients extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGap(77, 77, 77)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Sexe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Mail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Tel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Cin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(TypeS, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Cin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TypeS, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Mail, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Tel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(jLabel11)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(Sexe, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(96, 96, 96)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                                        .addComponent(jLabel10)))
-                                .addGap(28, 28, 28))))
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel11))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(Certificat))
+                            .addComponent(jLabel12)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
-                                .addComponent(jScrollPane3)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AjouterOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jScrollPane3))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,19 +439,24 @@ public class DAffichagePatients extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(Certificat))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel12))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(AjouterOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -405,18 +478,15 @@ public class DAffichagePatients extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitpanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitpanelMouseClicked
-        // TODO add your handling code here:
-        dispose();
+       dispose();
     }//GEN-LAST:event_ExitpanelMouseClicked
 
     private void ExitpanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitpanelMouseEntered
-        // TODO add your handling code here:
-        Exitpanel.setBackground(Color.red);
+       Exitpanel.setBackground(Color.red);
     }//GEN-LAST:event_ExitpanelMouseEntered
 
     private void ExitpanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitpanelMouseExited
-        // TODO add your handling code here:
-        Exitpanel.setBackground(new Color(51,129,162));
+      Exitpanel.setBackground(new Color(51,129,162));
     }//GEN-LAST:event_ExitpanelMouseExited
 
     private void ReducepanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReducepanelMouseClicked
@@ -424,14 +494,26 @@ public class DAffichagePatients extends javax.swing.JFrame {
     }//GEN-LAST:event_ReducepanelMouseClicked
 
     private void ReducepanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReducepanelMouseEntered
-        // TODO add your handling code here:
-        Reducepanel.setBackground(new Color(58,67,94));
+     Reducepanel.setBackground(new Color(58,67,94));
     }//GEN-LAST:event_ReducepanelMouseEntered
 
     private void ReducepanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReducepanelMouseExited
-        // TODO add your handling code here:
-        Reducepanel.setBackground(new Color(51,129,162));
+       Reducepanel.setBackground(new Color(51,129,162));
     }//GEN-LAST:event_ReducepanelMouseExited
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+       new  DOrdonance(idPatient).setVisible(true);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void AjouterOperationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AjouterOperationMouseClicked
+        DAjoutOperation O = new DAjoutOperation(this,idPatient);
+        O.setVisible(true);
+    }//GEN-LAST:event_AjouterOperationMouseClicked
+
+    private void CertificatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatMouseClicked
+        DCertificat C = new DCertificat(idPatient);
+        C.setVisible(true);
+    }//GEN-LAST:event_CertificatMouseClicked
 
     /**
      * @param args the command line arguments
@@ -470,8 +552,10 @@ public class DAffichagePatients extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AjouterOperation;
     private javax.swing.JTable Allergies;
     private javax.swing.JTable Antecedants;
+    private javax.swing.JLabel Certificat;
     private javax.swing.JLabel Cin;
     private javax.swing.JLabel Date;
     private javax.swing.JLabel ExitPanel;
@@ -479,15 +563,16 @@ public class DAffichagePatients extends javax.swing.JFrame {
     private javax.swing.JPanel Exitpanel;
     private javax.swing.JLabel Mail;
     private javax.swing.JLabel Nom;
+    private javax.swing.JTable Operations;
     private javax.swing.JLabel Prenom;
     private javax.swing.JPanel Reducepanel;
     private javax.swing.JLabel Sexe;
     private javax.swing.JLabel Tel;
     private javax.swing.JLabel TypeS;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -500,5 +585,6 @@ public class DAffichagePatients extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 }

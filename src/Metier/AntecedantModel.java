@@ -14,23 +14,24 @@ import sun.util.logging.PlatformLogger;
  *
  * @author hatim
  */
-public class PatientModelDentiste extends AbstractTableModel {
+public class AntecedantModel extends AbstractTableModel {
   private int NbLignes=0;
   private int NbCol=0;
   private String[] Titres;
   private ArrayList<Vector<String>> MesLignes = new ArrayList<Vector<String>>();
   
-  public PatientModelDentiste(ResultSet Rs)
+  public AntecedantModel()
+  {
+      
+  }
+  public AntecedantModel(ResultSet Rs)
   {
    try{
        ResultSetMetaData rsmd = Rs.getMetaData();
        NbCol = rsmd.getColumnCount();
        Titres = new String[NbCol];
-       Titres[0]="ID";
-       Titres[1]="NOM";
-       Titres[2]="PRENOM";
-       Titres[3]="SEXE";
-       Titres[4]="TELEPHONE";
+       Titres[0]="DESIGNATION";
+       Titres[1]="DESCRIPTION";
        for (int i=0;i<NbCol;i++)
        {
            Vector<String> Lignes;

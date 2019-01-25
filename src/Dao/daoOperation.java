@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,18 +24,19 @@ public class daoOperation {
 
     }
 
-    public void Ajouter(String dentiste, String patient, String type, Date date, String remarque) {
+    public void Ajouter(String patient,String dentiste, String type, Date date, String remarque) {
         try {
             PreparedStatement Pst = Con.prepareStatement("insert into operer values(?,?,?,?,?)");
-            Pst.setString(1, dentiste);
-            Pst.setString(2, patient);
-            Pst.setString(3, type);
-            Pst.setDate(4, date);
-            Pst.setString(5, remarque);
+            Pst.setString(1,patient);
+            Pst.setString(2,dentiste);
+            Pst.setString(3,type);
+            Pst.setDate(4,date);
+            Pst.setString(5,remarque);
             Pst.executeUpdate();
             System.out.println("L'operation a bien ete ajoutée !  ");
         } catch (SQLException ex) {
             System.err.println("la requete ajouter operation a generer des erreures ! " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Champ deja existant","Avertissement", 0);
         }
 
     }
@@ -43,7 +45,7 @@ public class daoOperation {
         ResultSet Resultat = null;
         try {
             St = Con.createStatement();
-            Resultat = St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer");
+            Resultat = St.executeQuery("select P.nom,O.typeop,O.dateop,O.remarques from operer O,patient P where P.id_patient=O.id_patient");
             System.out.println("Affichage des operations : ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -55,7 +57,7 @@ public class daoOperation {
         ResultSet Resultat = null;
         try {
             St = Con.createStatement();
-            Resultat = St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer where id_patient='" + id + "'");
+            Resultat = St.executeQuery("select typeop,dateop,remarques from operer where id_patient='" + id + "'");
         } catch (SQLException ex) {
             System.err.println("==>" + ex.getMessage());
         }
@@ -67,18 +69,19 @@ public class daoOperation {
         try {
             String Like = id + "%";
             St = Con.createStatement();
-            Resultat = St.executeQuery("select id_patient,type_op,dateoperation,remarque from operer where id_patient like '" + Like + "'");
+            Resultat = St.executeQuery("select id_patient,typeop,dateop,remarques from operer"
+                    + " where id_patient like '" + Like + "' or typeop like '" + Like + "'");
         } catch (SQLException ex) {
             System.err.println("==>" + ex.getMessage());
         }
         return Resultat;
     }
 
-    public ResultSet NombreOp() {
+    public ResultSet NombreOp(String idD) {
         ResultSet Resultat = null;
         try {
             St = Con.createStatement();
-            Resultat = St.executeQuery("select count(*) from operer");
+            Resultat = St.executeQuery("select count(*) from operer where id_dentiste="+idD);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -99,7 +102,7 @@ public class daoOperation {
 
     public void Modifier(String TYPE_OP, String REMARQUE, String Id_patient) {
         try {
-            PreparedStatement pst = Con.prepareStatement("update operer set TYPE_OP=?, REMARQUE=? where id_patient=?");
+            PreparedStatement pst = Con.prepareStatement("update operer set TYPEOP=?, REMARQUES=? where id_patient=?");
             pst.setString(1, TYPE_OP);
             pst.setString(2, REMARQUE);
             pst.setString(3, Id_patient);

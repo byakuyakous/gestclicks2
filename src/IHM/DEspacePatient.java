@@ -5,17 +5,36 @@
  */
 package IHM;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 /**
  *
  * @author hatim
  */
 public class DEspacePatient extends javax.swing.JPanel {
-
+    int xMouse=0;
+    int yMouse=0;
+    GridBagLayout layout = new GridBagLayout();
+    DCertificatsPan DCertif = new DCertificatsPan();
+    DOrdonancePan DOrdon = new DOrdonancePan();
+    DStatsPan DStat = new DStatsPan();
     /**
      * Creates new form DEspacePatient
      */
     public DEspacePatient() {
         initComponents();
+        DynamicPanel.setLayout(layout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx=0;
+        c.gridy=0;
+        DynamicPanel.add(DCertif, c);
+        DynamicPanel.add(DOrdon, c);
+        DynamicPanel.add(DStat, c);
+        DCertif.setVisible(true);
+        DOrdon.setVisible(false);
+        DStat.setVisible(false);
     }
 
     /**
@@ -29,71 +48,128 @@ public class DEspacePatient extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         Certificats = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         Ordonances = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Statistiques = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        DynamicPanel = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         Certificats.setBackground(new java.awt.Color(255, 255, 255));
+        Certificats.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CertificatsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CertificatsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CertificatsMouseExited(evt);
+            }
+        });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/certificats.png"))); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel4.setText("Certificats");
+        jLabel5.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/certificats2.png"))); // NOI18N
+        jLabel5.setText("Ordonnances");
 
         javax.swing.GroupLayout CertificatsLayout = new javax.swing.GroupLayout(Certificats);
         Certificats.setLayout(CertificatsLayout);
         CertificatsLayout.setHorizontalGroup(
             CertificatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CertificatsLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(CertificatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CertificatsLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(21, 21, 21))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CertificatsLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap())))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel5)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         CertificatsLayout.setVerticalGroup(
             CertificatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CertificatsLayout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Ordonances.setBackground(new java.awt.Color(255, 255, 255));
+        Ordonances.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OrdonancesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                OrdonancesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                OrdonancesMouseExited(evt);
+            }
+        });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/medical-history.png"))); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel2.setText("Ordonances");
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/prescription.png"))); // NOI18N
+        jLabel4.setText("Cértificats");
 
         javax.swing.GroupLayout OrdonancesLayout = new javax.swing.GroupLayout(Ordonances);
         Ordonances.setLayout(OrdonancesLayout);
         OrdonancesLayout.setHorizontalGroup(
             OrdonancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OrdonancesLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(OrdonancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdonancesLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdonancesLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap())))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel4)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         OrdonancesLayout.setVerticalGroup(
             OrdonancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OrdonancesLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Statistiques.setBackground(new java.awt.Color(255, 255, 255));
+        Statistiques.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatistiquesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                StatistiquesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                StatistiquesMouseExited(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/statistics.png"))); // NOI18N
+        jLabel7.setText("Stastiques");
+
+        javax.swing.GroupLayout StatistiquesLayout = new javax.swing.GroupLayout(Statistiques);
+        Statistiques.setLayout(StatistiquesLayout);
+        StatistiquesLayout.setHorizontalGroup(
+            StatistiquesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StatistiquesLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel7)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        StatistiquesLayout.setVerticalGroup(
+            StatistiquesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StatistiquesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        DynamicPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout DynamicPanelLayout = new javax.swing.GroupLayout(DynamicPanel);
+        DynamicPanel.setLayout(DynamicPanelLayout);
+        DynamicPanelLayout.setHorizontalGroup(
+            DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 740, Short.MAX_VALUE)
+        );
+        DynamicPanelLayout.setVerticalGroup(
+            DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -101,27 +177,31 @@ public class DEspacePatient extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(75, 75, 75)
                 .addComponent(Ordonances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163)
+                .addGap(75, 75, 75)
                 .addComponent(Certificats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGap(78, 78, 78)
+                .addComponent(Statistiques, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(DynamicPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Ordonances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Certificats, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addGap(131, 131, 131))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Certificats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Statistiques, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ordonances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(DynamicPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,14 +209,57 @@ public class DEspacePatient extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void OrdonancesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseEntered
+        Ordonances.setBackground(new Color(199,214,213));
+    }//GEN-LAST:event_OrdonancesMouseEntered
+
+    private void OrdonancesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseExited
+       Ordonances.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_OrdonancesMouseExited
+
+    private void CertificatsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseEntered
+        Certificats.setBackground(new Color(199,214,213));
+    }//GEN-LAST:event_CertificatsMouseEntered
+
+    private void CertificatsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseExited
+       Certificats.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_CertificatsMouseExited
+
+    private void StatistiquesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatistiquesMouseEntered
+        Statistiques.setBackground(new Color(199,214,213));
+    }//GEN-LAST:event_StatistiquesMouseEntered
+
+    private void StatistiquesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatistiquesMouseExited
+        Statistiques.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_StatistiquesMouseExited
+
+    private void OrdonancesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseClicked
+        DCertif.setVisible(true);
+        DOrdon.setVisible(false);
+        DStat.setVisible(false);
+    }//GEN-LAST:event_OrdonancesMouseClicked
+
+    private void CertificatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseClicked
+       DCertif.setVisible(false);
+        DOrdon.setVisible(true);
+        DStat.setVisible(false);
+    }//GEN-LAST:event_CertificatsMouseClicked
+
+    private void StatistiquesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatistiquesMouseClicked
+        DCertif.setVisible(false);
+        DOrdon.setVisible(false);
+        DStat.setVisible(true);
+    }//GEN-LAST:event_StatistiquesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Certificats;
+    private javax.swing.JPanel DynamicPanel;
     private javax.swing.JPanel Ordonances;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel Statistiques;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

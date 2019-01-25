@@ -5,7 +5,7 @@
  */
 package IHM;
 
-import Dao.DaoOrdonance;
+import Dao.DaoCertificat;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,11 +20,9 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,19 +31,20 @@ import javax.swing.JOptionPane;
  *
  * @author hatim
  */
-public class DOrdonance extends javax.swing.JFrame {
-    DaoOrdonance Ordonance = new DaoOrdonance();
+public class DCertificat extends javax.swing.JFrame {
     String idp;
+    DaoCertificat Certificat = new DaoCertificat();
+    
     /**
-     * Creates new form DOrdonance
+     * Creates new form DCertificat
      */
-    public DOrdonance() {
+    public DCertificat() {
         initComponents();
     }
-     public DOrdonance(String id) {
+     public DCertificat(String id) {
         this();
-        idp=id;
         this.setLocationRelativeTo(null);
+        idp=id;
     }
 
     /**
@@ -64,15 +63,16 @@ public class DOrdonance extends javax.swing.JFrame {
         ExitPanel1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        texteOrd = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        Valider = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Valider1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TextCertif = new javax.swing.JTextArea();
+        Valider2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        Reinitialiser = new javax.swing.JPanel();
         Reset = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 129, 162));
 
@@ -145,7 +145,7 @@ public class DOrdonance extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nouvelle Ordonance");
+        jLabel1.setText("Nouveau Certificat");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,7 +154,7 @@ public class DOrdonance extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                 .addComponent(Reducepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(Exitpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,72 +171,72 @@ public class DOrdonance extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        texteOrd.setColumns(20);
-        texteOrd.setRows(5);
-        jScrollPane1.setViewportView(texteOrd);
-
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jLabel2.setText("Redigez votre ordonance ");
+        jLabel2.setText("Rédigez le certificat : ");
 
-        Valider.addMouseListener(new java.awt.event.MouseAdapter() {
+        TextCertif.setColumns(20);
+        TextCertif.setRows(5);
+        jScrollPane1.setViewportView(TextCertif);
+
+        Valider2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ValiderMouseClicked(evt);
+                Valider2MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ValiderMouseEntered(evt);
+                Valider2MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ValiderMouseExited(evt);
+                Valider2MouseExited(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Valider");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Valider");
 
-        javax.swing.GroupLayout ValiderLayout = new javax.swing.GroupLayout(Valider);
-        Valider.setLayout(ValiderLayout);
-        ValiderLayout.setHorizontalGroup(
-            ValiderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ValiderLayout.createSequentialGroup()
+        javax.swing.GroupLayout Valider2Layout = new javax.swing.GroupLayout(Valider2);
+        Valider2.setLayout(Valider2Layout);
+        Valider2Layout.setHorizontalGroup(
+            Valider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Valider2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel5)
+                .addComponent(jLabel7)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
-        ValiderLayout.setVerticalGroup(
-            ValiderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ValiderLayout.createSequentialGroup()
+        Valider2Layout.setVerticalGroup(
+            Valider2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Valider2Layout.createSequentialGroup()
                 .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addComponent(jLabel7)
                 .addContainerGap())
         );
 
-        Valider1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Reinitialiser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Valider1MouseClicked(evt);
+                ReinitialiserMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Valider1MouseEntered(evt);
+                ReinitialiserMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                Valider1MouseExited(evt);
+                ReinitialiserMouseExited(evt);
             }
         });
 
         Reset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Reset.setText("Reinitialiser");
 
-        javax.swing.GroupLayout Valider1Layout = new javax.swing.GroupLayout(Valider1);
-        Valider1.setLayout(Valider1Layout);
-        Valider1Layout.setHorizontalGroup(
-            Valider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Valider1Layout.createSequentialGroup()
+        javax.swing.GroupLayout ReinitialiserLayout = new javax.swing.GroupLayout(Reinitialiser);
+        Reinitialiser.setLayout(ReinitialiserLayout);
+        ReinitialiserLayout.setHorizontalGroup(
+            ReinitialiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReinitialiserLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(Reset)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
-        Valider1Layout.setVerticalGroup(
-            Valider1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Valider1Layout.createSequentialGroup()
+        ReinitialiserLayout.setVerticalGroup(
+            ReinitialiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReinitialiserLayout.createSequentialGroup()
                 .addGap(0, 10, Short.MAX_VALUE)
                 .addComponent(Reset)
                 .addContainerGap())
@@ -247,35 +247,31 @@ public class DOrdonance extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(Valider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(Valider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(Reinitialiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Valider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(Reinitialiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Valider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -297,7 +293,7 @@ public class DOrdonance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitpanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitpanelMouseClicked
-
+        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_ExitpanelMouseClicked
 
@@ -325,29 +321,19 @@ public class DOrdonance extends javax.swing.JFrame {
         Reducepanel.setBackground(new Color(51,129,162));
     }//GEN-LAST:event_ReducepanelMouseExited
 
-    private void ValiderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseEntered
-        Valider.setBackground(new Color(91,161,73));
-    }//GEN-LAST:event_ValiderMouseEntered
-
-    private void ValiderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseExited
-        Valider.setBackground(new Color(240,240,240));
-    }//GEN-LAST:event_ValiderMouseExited
-
-    private void ValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseClicked
-       
-        int reponse = JOptionPane.showConfirmDialog(null, "Confirmer l'ordonance ! ", "Confirmation", JOptionPane.YES_NO_OPTION);
-        if (reponse == JOptionPane.YES_OPTION) 
-        {
-        try {
-            //inserer ordonnance dans la table
-            String Ord =texteOrd.getText();
+    private void Valider2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider2MouseClicked
+         //inserer ordonnance dans la table
+            String Ord =TextCertif.getText();
             java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            Ordonance.Create(idp,"12", Date, Ord);
-            //code de creation du pdf 
-            Document doc= new Document();
-            doc.setPageSize(PageSize.A6);
+            Certificat.Create(idp,"12", Date, Ord);
+        Document doc= new Document();
+        doc.setPageSize(PageSize.A6);
+       
+        try {
+           
+            
             LocalDateTime DateA = LocalDateTime.now();
-            PdfWriter.getInstance(doc, new FileOutputStream(idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("Certificat"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf"));
             doc.open();
             String imageFile = "rsz_images.png"; 
             Image img = Image.getInstance(imageFile);
@@ -365,14 +351,14 @@ public class DOrdonance extends javax.swing.JFrame {
             
             Paragraph P1 = new Paragraph();
             P1.setFont(FontFactory.getFont(FontFactory.TIMES_BOLD,20,Font.BOLD,BaseColor.BLACK));
-            P1.add("Ordonnance");
+            P1.add("Certificat Medical");
             P1.setAlignment(Element.ALIGN_CENTER);
             doc.add(P1);
             
             Paragraph P2 = new Paragraph();
             P2.setSpacingBefore(35f);
             P2.setFont(FontFactory.getFont(FontFactory.TIMES,10,Font.NORMAL,BaseColor.BLACK));
-            P2.add(texteOrd.getText().toString());
+            P2.add(TextCertif.getText().toString());
             P2.setAlignment(Element.ALIGN_JUSTIFIED);
             P2.setSpacingAfter(35f);
             doc.add(P2);
@@ -384,8 +370,7 @@ public class DOrdonance extends javax.swing.JFrame {
             doc.close();
             JOptionPane.showMessageDialog(null, "Ordonance generée avec succés");
             dispose();
-        }
-        catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
          catch (IOException ex) {
@@ -393,21 +378,27 @@ public class DOrdonance extends javax.swing.JFrame {
         }   catch (DocumentException ex) {
                 Logger.getLogger(DOrdonance.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        }
-    }//GEN-LAST:event_ValiderMouseClicked
+    }//GEN-LAST:event_Valider2MouseClicked
 
-    private void Valider1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Valider1MouseClicked
+    private void Valider2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider2MouseEntered
+        Valider2.setBackground(new Color(91,161,73));
+    }//GEN-LAST:event_Valider2MouseEntered
 
-    private void Valider1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Valider1MouseEntered
+    private void Valider2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider2MouseExited
+        Valider2.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_Valider2MouseExited
 
-    private void Valider1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Valider1MouseExited
+    private void ReinitialiserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReinitialiserMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Valider1MouseExited
+    }//GEN-LAST:event_ReinitialiserMouseClicked
+
+    private void ReinitialiserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReinitialiserMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReinitialiserMouseEntered
+
+    private void ReinitialiserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReinitialiserMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReinitialiserMouseExited
 
     /**
      * @param args the command line arguments
@@ -426,20 +417,20 @@ public class DOrdonance extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DOrdonance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DCertificat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DOrdonance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DCertificat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DOrdonance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DCertificat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DOrdonance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DCertificat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DOrdonance().setVisible(true);
+                new DCertificat().setVisible(true);
             }
         });
     }
@@ -449,15 +440,15 @@ public class DOrdonance extends javax.swing.JFrame {
     private javax.swing.JLabel ExitPanel1;
     private javax.swing.JPanel Exitpanel;
     private javax.swing.JPanel Reducepanel;
+    private javax.swing.JPanel Reinitialiser;
     private javax.swing.JLabel Reset;
-    private javax.swing.JPanel Valider;
-    private javax.swing.JPanel Valider1;
+    private javax.swing.JTextArea TextCertif;
+    private javax.swing.JPanel Valider2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea texteOrd;
     // End of variables declaration//GEN-END:variables
 }
