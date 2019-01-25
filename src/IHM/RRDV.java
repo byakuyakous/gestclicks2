@@ -15,6 +15,7 @@ import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -43,18 +44,14 @@ public class RRDV extends javax.swing.JPanel {
         Affichage();
         
     }
+    
     public void Affichage()
     {
-      //Date d = (Date) jDateChooser1.getDate();
-      daoRendezVous daoRDV = new daoRendezVous();
-      ResultSet RDVAffichage = daoRDV.ReadD();
-      
-//      TableRDVM.setModel(new RendezVousModele(RDVAffichage));
-//     TableRDVJ.setModel(new RendezVousModele(RDVAffichage));
-//      TableRDVD.setModel(new RendezVousModele(RDVAffichage));
-      System.out.println("Done");
-//      TableRDVP.setModel(new RendezVousModele(RDVAffichage));
- 
+//      //Date d = (Date) jDateChooser1.getDate();
+        daoRendezVous daoRDV = new daoRendezVous();
+        ResultSet RDVAffichage = daoRDV.ReadAll();
+        TableRDVD.setModel(new RendezVousModele(RDVAffichage));
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -384,7 +381,12 @@ public class RRDV extends javax.swing.JPanel {
 
         jLabel3.setText("Dentiste:");
 
-        ComboDentisteRDV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        ComboDentisteRDV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les dentistes" }));
+        ComboDentisteRDV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboDentisteRDVItemStateChanged(evt);
+            }
+        });
         ComboDentisteRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboDentisteRDVActionPerformed(evt);
@@ -573,6 +575,22 @@ public class RRDV extends javax.swing.JPanel {
     private void TableRDVDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_TableRDVDPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_TableRDVDPropertyChange
+
+    private void ComboDentisteRDVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboDentisteRDVItemStateChanged
+
+        daoRendezVous daoRDV = new daoRendezVous();
+        ResultSet RDVAffichage;
+        String s=ComboDentisteRDV.getSelectedItem().toString();
+        
+        if(s=="Tous les dentistes"){
+           RDVAffichage = daoRDV.ReadAll();  
+        }
+        else{
+           RDVAffichage = daoRDV.ReadD(s); 
+        }
+      TableRDVD.setModel(new RendezVousModele(RDVAffichage));
+
+    }//GEN-LAST:event_ComboDentisteRDVItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
