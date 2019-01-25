@@ -5,17 +5,18 @@
  */
 package IHM;
 
-import Dao.DaoDentiste;
-import Dao.daoRendezVous;
-import Metier.RendezVousModele;
+import Dao.*;
+import Metier.*;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
+
 
 /**
  *
@@ -26,10 +27,12 @@ public class RRDV extends javax.swing.JPanel {
     /**
      * Creates new form RRDV
      */
-    
+    DaoDentiste dao = new DaoDentiste();
+    daoRendezVous daoRDV = new daoRendezVous();
+    daoPatient daoP = new daoPatient();
     public RRDV() {
         initComponents();
-        DaoDentiste dao = new DaoDentiste();
+        
         ResultSet r=dao.Lister();
 
         try {
@@ -48,10 +51,17 @@ public class RRDV extends javax.swing.JPanel {
     public void Affichage()
     {
 //      //Date d = (Date) jDateChooser1.getDate();
-        daoRendezVous daoRDV = new daoRendezVous();
-        ResultSet RDVAffichage = daoRDV.ReadAll();
-        TableRDVD.setModel(new RendezVousModele(RDVAffichage));
-
+        
+        ResultSet RDVAffichageD = daoRDV.ReadAll();
+        TableRDVD.setModel(new RendezVousModele(RDVAffichageD));
+        
+        //Affichage Ajout 
+        ResultSet RDVAffichageP = daoP.ReadShort();
+        RDVAjout.setModel(new RendezVousShortModele(RDVAffichageP));
+////      TableRDVM.setModel(new RendezVousModele(RDVAffichage));
+////     TableRDVJ.setModel(new RendezVousModele(RDVAffichage));
+        
+////      TableRDVP.setModel(new RendezVousModele(RDVAffichage));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,17 +75,17 @@ public class RRDV extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Nouveau = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        OPIDpatient = new javax.swing.JTextField();
+        CINPatient = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        TypeOp = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        DateOp = new com.toedter.calendar.JDateChooser();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        TablePatient = new javax.swing.JTable();
+        RDVAjout = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        HeureOP = new javax.swing.JComboBox<>();
         ParJour = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableRDVJ = new javax.swing.JTable();
@@ -111,7 +121,7 @@ public class RRDV extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel5.setText("Type Opération");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chirurgie", " " }));
+        TypeOp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chirurgie", " " }));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel6.setText("Heure Opération");
@@ -141,9 +151,9 @@ public class RRDV extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TablePatient.setAutoCreateRowSorter(true);
-        TablePatient.setForeground(new java.awt.Color(102, 102, 102));
-        TablePatient.setModel(new javax.swing.table.DefaultTableModel(
+        RDVAjout.setAutoCreateRowSorter(true);
+        RDVAjout.setForeground(new java.awt.Color(102, 102, 102));
+        RDVAjout.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -159,19 +169,19 @@ public class RRDV extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        TablePatient.setGridColor(new java.awt.Color(255, 255, 255));
-        TablePatient.setSelectionBackground(new java.awt.Color(96, 112, 157));
-        TablePatient.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        RDVAjout.setGridColor(new java.awt.Color(255, 255, 255));
+        RDVAjout.setSelectionBackground(new java.awt.Color(96, 112, 157));
+        RDVAjout.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                TablePatientPropertyChange(evt);
+                RDVAjoutPropertyChange(evt);
             }
         });
-        jScrollPane4.setViewportView(TablePatient);
+        jScrollPane4.setViewportView(RDVAjout);
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel8.setText("Date Opération");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
+        HeureOP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
 
         javax.swing.GroupLayout NouveauLayout = new javax.swing.GroupLayout(Nouveau);
         Nouveau.setLayout(NouveauLayout);
@@ -189,11 +199,11 @@ public class RRDV extends javax.swing.JPanel {
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(OPIDpatient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CINPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(HeureOP, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(DateOp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                .addComponent(TypeOp, javax.swing.GroupLayout.Alignment.LEADING, 0, 99, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(NouveauLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
@@ -210,23 +220,23 @@ public class RRDV extends javax.swing.JPanel {
                     .addGroup(NouveauLayout.createSequentialGroup()
                         .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(OPIDpatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CINPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TypeOp, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DateOp, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(NouveauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(HeureOP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ajouter nouveau RDV", Nouveau);
@@ -269,6 +279,11 @@ public class RRDV extends javax.swing.JPanel {
         jScrollPane2.setViewportView(TableRDVJ);
 
         DateRDVJ.setDateFormatString("yyyy-MM-dd");
+        DateRDVJ.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                DateRDVJPropertyChange(evt);
+            }
+        });
 
         jLabel1.setText("Date du rendez-vous:");
 
@@ -292,7 +307,7 @@ public class RRDV extends javax.swing.JPanel {
         );
         ParJourLayout.setVerticalGroup(
             ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
             .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParJourLayout.createSequentialGroup()
                     .addGap(50, 50, 50)
@@ -367,7 +382,7 @@ public class RRDV extends javax.swing.JPanel {
                 .addGroup(ParMoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
             .addGroup(ParMoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParMoisLayout.createSequentialGroup()
                     .addGap(88, 88, 88)
@@ -507,7 +522,7 @@ public class RRDV extends javax.swing.JPanel {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(ParPatientLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 117, Short.MAX_VALUE)))
+                        .addGap(0, 175, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -557,10 +572,31 @@ public class RRDV extends javax.swing.JPanel {
     }//GEN-LAST:event_TableRDVJPropertyChange
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        //Idrep
+        //insert method to get itreceptionnist connected, in the mean time, it had a random value
+        String Idrep = "626262";
+               
+        //Idpatient
+        String Cin = CINPatient.getText();
+        //insert method to get idp from cin
+        String Idpatient = "525252";
         
+        String Type = TypeOp.getSelectedItem().toString();
+        Date Date = new Date(DateOp.getCalendar().getTime().getTime());
+        String HeureOp = HeureOP.getSelectedItem().toString();
+        RendezVous RDV = new RendezVous(Idrep, Idpatient, Date, HeureOp, true);
+        daoRDV.Create(RDV);
+        RestoreDefault();
     }//GEN-LAST:event_jPanel5MouseClicked
 
-    private void TablePatientPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_TablePatientPropertyChange
+    public void RestoreDefault(){
+        
+        CINPatient.setText("");
+        HeureOP.setSelectedIndex(0);
+        TypeOp.setSelectedIndex(0);
+        DateOp.setCalendar(null);
+    }
+    private void RDVAjoutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_RDVAjoutPropertyChange
         /* int row = TableRDV.getSelectedRow();
         int column = TableRDV.getSelectedColumn();
 
@@ -570,7 +606,7 @@ public class RRDV extends javax.swing.JPanel {
         String id = TableRDV.getValueAt(row, 0).toString();
         */
         //update(id, resul, column);
-    }//GEN-LAST:event_TablePatientPropertyChange
+    }//GEN-LAST:event_RDVAjoutPropertyChange
 
     private void TableRDVDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_TableRDVDPropertyChange
         // TODO add your handling code here:
@@ -592,23 +628,33 @@ public class RRDV extends javax.swing.JPanel {
 
     }//GEN-LAST:event_ComboDentisteRDVItemStateChanged
 
+    private void DateRDVJPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DateRDVJPropertyChange
+
+       // DateRDVJ.setDate(new Date());
+//        System.out.println(DateRDVJ.getDate().getTime());
+//        System.out.println(DateRDVJ.getDate().getTime());
+//           Date ourJavaDateObject = new Date(Calendar.getInstance().getTime().getTime());
+
+
+    }//GEN-LAST:event_DateRDVJPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CINPatient;
     private javax.swing.JComboBox<String> ComboDentisteRDV;
+    private com.toedter.calendar.JDateChooser DateOp;
     private com.toedter.calendar.JDateChooser DateRDVJ;
+    private javax.swing.JComboBox<String> HeureOP;
     private javax.swing.JPanel Nouveau;
-    private javax.swing.JTextField OPIDpatient;
     private javax.swing.JPanel ParDentiste;
     private javax.swing.JPanel ParJour;
     private javax.swing.JPanel ParMois;
     private javax.swing.JPanel ParPatient;
-    private javax.swing.JTable TablePatient;
+    private javax.swing.JTable RDVAjout;
     private javax.swing.JTable TableRDVD;
     private javax.swing.JTable TableRDVJ;
     private javax.swing.JTable TableRDVM;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<String> TypeOp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
