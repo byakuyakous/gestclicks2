@@ -333,7 +333,8 @@ public class DCertificat extends javax.swing.JFrame {
            
             
             LocalDateTime DateA = LocalDateTime.now();
-            PdfWriter.getInstance(doc, new FileOutputStream("Certificat"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf"));
+            String pdfname="Certificat"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf";
+            PdfWriter.getInstance(doc, new FileOutputStream(pdfname));
             doc.open();
             String imageFile = "rsz_images.png"; 
             Image img = Image.getInstance(imageFile);
@@ -369,6 +370,9 @@ public class DCertificat extends javax.swing.JFrame {
             doc.add(img1);
             doc.close();
             JOptionPane.showMessageDialog(null, "Ordonance generée avec succés");
+            //Affichage du certificat en pdf
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                    +"C:\\Users\\hatim\\OneDrive\\S1\\JAVA\\TDs\\projet 2018\\gestclicks2\\"+pdfname) ;
             dispose();
         } catch (FileNotFoundException ex) {
             System.err.println(ex.getMessage());

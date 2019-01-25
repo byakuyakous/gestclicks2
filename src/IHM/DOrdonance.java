@@ -347,7 +347,8 @@ public class DOrdonance extends javax.swing.JFrame {
             Document doc= new Document();
             doc.setPageSize(PageSize.A6);
             LocalDateTime DateA = LocalDateTime.now();
-            PdfWriter.getInstance(doc, new FileOutputStream(idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf"));
+            String pdfname="Ordonnace"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf";
+            PdfWriter.getInstance(doc, new FileOutputStream(pdfname));
             doc.open();
             String imageFile = "rsz_images.png"; 
             Image img = Image.getInstance(imageFile);
@@ -383,6 +384,9 @@ public class DOrdonance extends javax.swing.JFrame {
             doc.add(img1);
             doc.close();
             JOptionPane.showMessageDialog(null, "Ordonance generée avec succés");
+            //Affichage de l'ordonnace en format pdf
+             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                    +"C:\\Users\\hatim\\OneDrive\\S1\\JAVA\\TDs\\projet 2018\\gestclicks2\\"+pdfname) ;
             dispose();
         }
         catch (FileNotFoundException ex) {
