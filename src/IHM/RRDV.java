@@ -493,8 +493,9 @@ public class RRDV extends javax.swing.JPanel {
             .addGroup(ParPatientLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         ParPatientLayout.setVerticalGroup(
             ParPatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
