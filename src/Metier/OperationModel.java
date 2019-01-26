@@ -31,9 +31,10 @@ public class OperationModel extends AbstractTableModel {
        NbCol = rsmd.getColumnCount();
        Titres = new String[NbCol];
        Titres[0]="PATIENT";
-       Titres[1]="TYPE OPERATION";
-       Titres[2]="DATE";
-       Titres[3]="REMARQUES";
+       Titres[1]="ID_Patient";
+       Titres[2]="TYPE OPERATION";
+       Titres[3]="DATE";
+       Titres[4]="REMARQUES";
        for (int i=0;i<NbCol;i++)
        {
            Vector<String> Lignes;

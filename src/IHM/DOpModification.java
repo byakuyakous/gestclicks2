@@ -7,6 +7,11 @@ package IHM;
 
 import Dao.daoOperation;
 import java.awt.Color;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +23,8 @@ public class DOpModification extends javax.swing.JDialog {
     int yMouse;
     daoOperation D =new daoOperation();
     DOperation Dp;
+    String idpatient;
+    String Dateop;
     /**
      * Creates new form DOpModification
      */
@@ -26,12 +33,14 @@ public class DOpModification extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         OPIDpatient.setEnabled(false);
     }
-      public DOpModification(String Patient,String Type, String Remarque,DOperation D) {
+    public DOpModification(String Patient,String id,String Type, String Remarque,String Date,DOperation D) {
         this();
         OPIDpatient.setText(Patient);
         OPRemarques.setText(Remarque);
         OPTypeop.setText(Type);
         Dp=D;
+        idpatient=id;
+        Dateop=Date;
     }
 
     /**
@@ -381,15 +390,14 @@ public class DOpModification extends javax.swing.JDialog {
 
     private void ValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseClicked
 
-        String idd = OPRemarques.getText();
-        String r = OPTypeop.getText();
-        String idp = OPIDpatient.getText();
-        OPIDpatient.setEnabled(false);
-        D.Modifier(idd, r,idp);
-        Dp.setPlaceholder();
-        Dp.Affichage();
-        dispose();
-        
+            String re = OPRemarques.getText();
+            String ido = OPTypeop.getText();
+            OPIDpatient.setEnabled(false);
+            D.Modifier(ido,re,idpatient,Dateop);
+            Dp.setPlaceholder();
+            Dp.Affichage();
+            dispose();
+
     }//GEN-LAST:event_ValiderMouseClicked
 
     private void ValiderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseEntered

@@ -45,7 +45,8 @@ public class daoOperation {
         ResultSet Resultat = null;
         try {
             St = Con.createStatement();
-            Resultat = St.executeQuery("select P.nom,O.typeop,O.dateop,O.remarques from operer O,patient P where P.id_patient=O.id_patient");
+            Resultat = St.executeQuery("select P.nom,O.id_patient,O.typeop,O.dateop,O.remarques "
+                    + "from operer O,patient P where P.id_patient=O.id_patient");
             System.out.println("Affichage des operations : ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -63,14 +64,15 @@ public class daoOperation {
         }
         return Resultat;
     }
-
     public ResultSet Filtrer(String id) {
         ResultSet Resultat = null;
         try {
             String Like = id + "%";
             St = Con.createStatement();
-            Resultat = St.executeQuery("select id_patient,typeop,dateop,remarques from operer"
-                    + " where id_patient like '" + Like + "' or typeop like '" + Like + "'");
+            Resultat = St.executeQuery("select P.nom,O.id_patient,O.id_patient,O.typeop,O.dateop,O.remarques "
+                    + "from operer O , patient P"
+                    + " where typeop like '" + Like + "'and P.id_patient=O.id_patient");
+            
         } catch (SQLException ex) {
             System.err.println("==>" + ex.getMessage());
         }
@@ -100,12 +102,13 @@ public class daoOperation {
         }
     }
 
-    public void Modifier(String TYPE_OP, String REMARQUE, String Id_patient) {
+    public void Modifier(String TYPE_OP, String REMARQUE, String Id_patient,String Date) {
         try {
-            PreparedStatement pst = Con.prepareStatement("update operer set TYPEOP=?, REMARQUES=? where id_patient=?");
+            PreparedStatement pst = Con.prepareStatement("update operer set TYPEOP=?, REMARQUES=? where id_patient=? and dateop=?");
             pst.setString(1, TYPE_OP);
             pst.setString(2, REMARQUE);
             pst.setString(3, Id_patient);
+            pst.setString(4, Date);
             pst.executeUpdate();
             System.out.println("Mise a jour effectuée avec succes!  ");
         } catch (SQLException ex) {

@@ -25,9 +25,19 @@ public class GestClicks {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        daoOperation Operation = new daoOperation();
-        Operation.Ajouter("12", "Patient1", "BlaBlz",Date, "addaz");
+//        try{
+//           java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+//        daoOperation Operation = new daoOperation();
+//        ResultSet Res = Operation.AfficherDate("Patient4","Detartrage", "dentition up");
+//        Res.next();
+//        Date D = Res.getDate("DATEOP");  
+//        System.out.println(D.toString());
+//        //Operation.Modifier("Detartrage", "dentition down", "Patient4", D);
+//        }
+//        catch(Exception e){
+//            
+//        }
+       
     }
     
 }
