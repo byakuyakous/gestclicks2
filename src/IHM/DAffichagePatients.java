@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,6 +22,8 @@ public class DAffichagePatients extends javax.swing.JFrame {
     daoAntécédant Antecedant =new daoAntécédant();
     daoOperation Operation = new daoOperation();
     String idPatient;
+    String NomP;
+
     /**
      * Creates new form DAffichagePatients
      */
@@ -32,6 +34,7 @@ public class DAffichagePatients extends javax.swing.JFrame {
         public DAffichagePatients(String nom , String prenom,String id) {
          this();
         try {
+            NomP=nom;
             idPatient=id;
             Nom.setText(nom);
             Prenom.setText(prenom);
@@ -502,7 +505,7 @@ public class DAffichagePatients extends javax.swing.JFrame {
     }//GEN-LAST:event_ReducepanelMouseExited
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-       new  DOrdonance(idPatient).setVisible(true);
+       new  DOrdonance(idPatient,NomP).setVisible(true);
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void AjouterOperationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AjouterOperationMouseClicked
@@ -511,7 +514,7 @@ public class DAffichagePatients extends javax.swing.JFrame {
     }//GEN-LAST:event_AjouterOperationMouseClicked
 
     private void CertificatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatMouseClicked
-        DCertificat C = new DCertificat(idPatient);
+        DCertificat C = new DCertificat(idPatient,NomP);
         C.setVisible(true);
     }//GEN-LAST:event_CertificatMouseClicked
 

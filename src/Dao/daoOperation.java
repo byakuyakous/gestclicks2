@@ -36,7 +36,7 @@ public class daoOperation {
             System.out.println("L'operation a bien ete ajoutée !  ");
         } catch (SQLException ex) {
             System.err.println("la requete ajouter operation a generer des erreures ! " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Champ deja existant","Avertissement", 0);
+            JOptionPane.showMessageDialog(null, "Erreur d'ajout ","Avertissement", 0);
         }
 
     }
@@ -69,7 +69,7 @@ public class daoOperation {
         try {
             String Like = id + "%";
             St = Con.createStatement();
-            Resultat = St.executeQuery("select P.nom,O.id_patient,O.id_patient,O.typeop,O.dateop,O.remarques "
+            Resultat = St.executeQuery("select P.nom,O.id_patient,O.typeop,O.dateop,O.remarques "
                     + "from operer O , patient P"
                     + " where typeop like '" + Like + "'and P.id_patient=O.id_patient");
             
@@ -113,6 +113,7 @@ public class daoOperation {
             System.out.println("Mise a jour effectuée avec succes!  ");
         } catch (SQLException ex) {
             System.err.println("MAJ a generé des erreurs !! " + ex.getMessage());
+             JOptionPane.showMessageDialog(null, "Erreur lors de la mise a jour ","Avertissement", 0);
         }
     }
 

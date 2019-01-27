@@ -627,6 +627,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
 
     private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
         Ddefault.setVisible(false);
+        Doperation.Affichage();
         Doperation.setVisible(true);
     }//GEN-LAST:event_GestPanelMouseClicked
 

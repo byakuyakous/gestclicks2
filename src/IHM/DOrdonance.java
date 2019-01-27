@@ -36,15 +36,17 @@ import javax.swing.JOptionPane;
 public class DOrdonance extends javax.swing.JFrame {
     DaoOrdonance Ordonance = new DaoOrdonance();
     String idp;
+    String Nom;
     /**
      * Creates new form DOrdonance
      */
     public DOrdonance() {
         initComponents();
     }
-     public DOrdonance(String id) {
+     public DOrdonance(String id,String nom) {
         this();
         idp=id;
+        Nom=nom;
         this.setLocationRelativeTo(null);
     }
 
@@ -73,6 +75,7 @@ public class DOrdonance extends javax.swing.JFrame {
         Reset = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(51, 129, 162));
 
@@ -347,7 +350,7 @@ public class DOrdonance extends javax.swing.JFrame {
             Document doc= new Document();
             doc.setPageSize(PageSize.A6);
             LocalDateTime DateA = LocalDateTime.now();
-            String pdfname="Ordonnace"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf";
+            String pdfname="Ordonnace"+Nom+(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateA))+".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(pdfname));
             doc.open();
             String imageFile = "rsz_images.png"; 

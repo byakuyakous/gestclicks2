@@ -42,7 +42,7 @@ public class DaoOrdonance {
         ResultSet Rs=null;
         try {
             Statement st=Conn.createStatement();
-            Rs=st.executeQuery("select P.nom,O.dateord,O.Description  from donner_ord O,patient P where P.id_patient=O.id_patient and O.id_dentiste="+idA );
+            Rs=st.executeQuery("select P.nom,P.prenom,O.dateord  from donner_ord O,patient P where P.id_patient=O.id_patient and O.id_dentiste="+idA );
             
         } catch (SQLException ex) {
               System.err.println(ex.getMessage());

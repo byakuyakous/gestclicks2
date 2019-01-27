@@ -34,7 +34,7 @@ public class DaoCertificat {
             System.out.println("Certificat succes !");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Erreur lors de la creation","Avertissement", 0);
+            JOptionPane.showMessageDialog(null, "Erreur lors de la creation de certificat","Avertissement", 0);
             
         }
     }
@@ -43,7 +43,7 @@ public class DaoCertificat {
         ResultSet Rs=null;
         try {
             Statement st=Conn.createStatement();
-            Rs=st.executeQuery("select P.nom,C.datecertificat,C.Description  from donner_certificat C,patient P where P.id_patient=C.id_patient and c.id_dentiste="+idA);
+            Rs=st.executeQuery("select P.nom,P.prenom,C.datecertificat  from donner_certificat C,patient P where P.id_patient=C.id_patient and c.id_dentiste="+idA);
             
         } catch (SQLException ex) {
               System.err.println(ex.getMessage());
@@ -73,7 +73,5 @@ public class DaoCertificat {
         }
         return Rs;
     }
-
-    
-    
+   
 }

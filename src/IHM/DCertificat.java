@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
  */
 public class DCertificat extends javax.swing.JFrame {
     String idp;
+    String Nom;
     DaoCertificat Certificat = new DaoCertificat();
     
     /**
@@ -41,10 +42,11 @@ public class DCertificat extends javax.swing.JFrame {
     public DCertificat() {
         initComponents();
     }
-     public DCertificat(String id) {
+     public DCertificat(String id,String nom) {
         this();
         this.setLocationRelativeTo(null);
         idp=id;
+        Nom=nom;
     }
 
     /**
@@ -333,7 +335,7 @@ public class DCertificat extends javax.swing.JFrame {
            
             
             LocalDateTime DateA = LocalDateTime.now();
-            String pdfname="Certificat"+idp+(DateTimeFormatter.ofPattern("MM-dd-yyyy").format(DateA))+".pdf";
+            String pdfname="Certificat"+Nom+(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(DateA))+".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(pdfname));
             doc.open();
             String imageFile = "rsz_images.png"; 
@@ -369,7 +371,7 @@ public class DCertificat extends javax.swing.JFrame {
             img1.setAlignment(Element.ALIGN_RIGHT);
             doc.add(img1);
             doc.close();
-            JOptionPane.showMessageDialog(null, "Ordonance generée avec succés");
+            JOptionPane.showMessageDialog(null, "Certificat generée avec succés");
             //Affichage du certificat en pdf
             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
                     +"C:\\Users\\hatim\\OneDrive\\S1\\JAVA\\TDs\\projet 2018\\gestclicks2\\"+pdfname) ;

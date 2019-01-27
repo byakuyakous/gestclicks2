@@ -87,6 +87,7 @@ public class DAjoutOperation extends javax.swing.JFrame {
         });
 
         Exitpanel.setBackground(new java.awt.Color(51, 129, 162));
+        Exitpanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Exitpanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitpanelMouseClicked(evt);
@@ -188,6 +189,7 @@ public class DAjoutOperation extends javax.swing.JFrame {
         OPRemarques.setRows(5);
         jScrollPane1.setViewportView(OPRemarques);
 
+        Reinitialiser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Reinitialiser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ReinitialiserMouseClicked(evt);
@@ -213,6 +215,7 @@ public class DAjoutOperation extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Valider.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Valider.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ValiderMouseClicked(evt);
@@ -405,6 +408,7 @@ public class DAjoutOperation extends javax.swing.JFrame {
             Reinitialiser();
             dispose();
             P.AffichageOp(idp);
+            
             
         }
     }//GEN-LAST:event_ValiderMouseClicked

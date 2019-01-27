@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class DCertificatsPan extends javax.swing.JPanel {
     DaoCertificat C = new DaoCertificat();
+    
     /**
      * Creates new form DCertificatsPan
      */
@@ -71,6 +72,11 @@ public class DCertificatsPan extends javax.swing.JPanel {
             }
         ));
         Certificats.setGridColor(new java.awt.Color(255, 255, 255));
+        Certificats.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CertificatsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Certificats);
 
         nbrOp.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -118,6 +124,26 @@ public class DCertificatsPan extends javax.swing.JPanel {
                 .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CertificatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseClicked
+            try{
+        if (evt.getClickCount() == 2) {
+            int row = Certificats.getSelectedRow();
+            if (row != -1) {
+               String Nom = Certificats.getValueAt(row, 0).toString();
+               String date = Certificats.getValueAt(row,2).toString();
+               String pdfname="Certificat"+Nom+date+".pdf";
+               System.out.println(pdfname);
+               Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                    +"C:\\Users\\hatim\\OneDrive\\S1\\JAVA\\TDs\\projet 2018\\gestclicks2\\"+pdfname) ;
+               System.out.println("done");
+            }
+        }
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+    }//GEN-LAST:event_CertificatsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

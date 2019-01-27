@@ -35,6 +35,7 @@ public class DEspacePatient extends javax.swing.JPanel {
         DCertif.setVisible(true);
         DOrdon.setVisible(false);
         DStat.setVisible(false);
+        DCertif.Afficher();
     }
 
     /**
@@ -49,7 +50,7 @@ public class DEspacePatient extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         Certificats = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        Ordonances = new javax.swing.JPanel();
+        Certifs = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Statistiques = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -91,16 +92,16 @@ public class DEspacePatient extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Ordonances.setBackground(new java.awt.Color(255, 255, 255));
-        Ordonances.addMouseListener(new java.awt.event.MouseAdapter() {
+        Certifs.setBackground(new java.awt.Color(255, 255, 255));
+        Certifs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                OrdonancesMouseClicked(evt);
+                CertifsMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                OrdonancesMouseEntered(evt);
+                CertifsMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                OrdonancesMouseExited(evt);
+                CertifsMouseExited(evt);
             }
         });
 
@@ -108,18 +109,18 @@ public class DEspacePatient extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/prescription.png"))); // NOI18N
         jLabel4.setText("Cértificats");
 
-        javax.swing.GroupLayout OrdonancesLayout = new javax.swing.GroupLayout(Ordonances);
-        Ordonances.setLayout(OrdonancesLayout);
-        OrdonancesLayout.setHorizontalGroup(
-            OrdonancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OrdonancesLayout.createSequentialGroup()
+        javax.swing.GroupLayout CertifsLayout = new javax.swing.GroupLayout(Certifs);
+        Certifs.setLayout(CertifsLayout);
+        CertifsLayout.setHorizontalGroup(
+            CertifsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CertifsLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        OrdonancesLayout.setVerticalGroup(
-            OrdonancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OrdonancesLayout.createSequentialGroup()
+        CertifsLayout.setVerticalGroup(
+            CertifsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CertifsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -178,7 +179,7 @@ public class DEspacePatient extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(Ordonances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Certifs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addComponent(Certificats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
@@ -192,7 +193,7 @@ public class DEspacePatient extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Certificats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Statistiques, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ordonances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Certifs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(DynamicPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -209,13 +210,13 @@ public class DEspacePatient extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OrdonancesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseEntered
-        Ordonances.setBackground(new Color(199,214,213));
-    }//GEN-LAST:event_OrdonancesMouseEntered
+    private void CertifsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertifsMouseEntered
+        Certifs.setBackground(new Color(199,214,213));
+    }//GEN-LAST:event_CertifsMouseEntered
 
-    private void OrdonancesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseExited
-       Ordonances.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_OrdonancesMouseExited
+    private void CertifsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertifsMouseExited
+       Certifs.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_CertifsMouseExited
 
     private void CertificatsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseEntered
         Certificats.setBackground(new Color(199,214,213));
@@ -233,16 +234,18 @@ public class DEspacePatient extends javax.swing.JPanel {
         Statistiques.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_StatistiquesMouseExited
 
-    private void OrdonancesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdonancesMouseClicked
+    private void CertifsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertifsMouseClicked
         DCertif.setVisible(true);
         DOrdon.setVisible(false);
         DStat.setVisible(false);
-    }//GEN-LAST:event_OrdonancesMouseClicked
+        DCertif.Afficher();
+    }//GEN-LAST:event_CertifsMouseClicked
 
     private void CertificatsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CertificatsMouseClicked
        DCertif.setVisible(false);
         DOrdon.setVisible(true);
         DStat.setVisible(false);
+        DOrdon.Afficher();
     }//GEN-LAST:event_CertificatsMouseClicked
 
     private void StatistiquesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatistiquesMouseClicked
@@ -254,8 +257,8 @@ public class DEspacePatient extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Certificats;
+    private javax.swing.JPanel Certifs;
     private javax.swing.JPanel DynamicPanel;
-    private javax.swing.JPanel Ordonances;
     private javax.swing.JPanel Statistiques;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

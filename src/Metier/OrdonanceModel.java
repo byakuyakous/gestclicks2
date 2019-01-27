@@ -31,9 +31,9 @@ public class OrdonanceModel extends AbstractTableModel {
        ResultSetMetaData rsmd = Rs.getMetaData();
        NbCol = rsmd.getColumnCount();
        Titres = new String[NbCol];
-       Titres[0]="Patient";
-       Titres[1]="DATE";
-       Titres[2]="Description";
+       Titres[0]="NOM";
+       Titres[1]="PRENOM";
+       Titres[2]="DATE";
        for (int i=0;i<NbCol;i++)
        {
            Vector<String> Lignes;

@@ -81,6 +81,11 @@ public class DOrdonancePan extends javax.swing.JPanel {
             }
         ));
         Odonnances.setGridColor(new java.awt.Color(255, 255, 255));
+        Odonnances.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OdonnancesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Odonnances);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -125,6 +130,26 @@ public class DOrdonancePan extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OdonnancesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OdonnancesMouseClicked
+       try{
+        if (evt.getClickCount() == 2) {
+            int row = Odonnances.getSelectedRow();
+            if (row != -1) {
+               String Nom = Odonnances.getValueAt(row, 0).toString();
+               String date = Odonnances.getValueAt(row,2).toString();
+               String pdfname="Ordonnace"+Nom+date+".pdf";
+               System.out.println(pdfname);
+               Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                    +"C:\\Users\\hatim\\OneDrive\\S1\\JAVA\\TDs\\projet 2018\\gestclicks2\\"+pdfname) ;
+               System.out.println("done");
+            }
+        }
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+    }//GEN-LAST:event_OdonnancesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

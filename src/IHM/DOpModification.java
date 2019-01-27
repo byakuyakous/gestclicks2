@@ -32,12 +32,13 @@ public class DOpModification extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         OPIDpatient.setEnabled(false);
+        
     }
     public DOpModification(String Patient,String id,String Type, String Remarque,String Date,DOperation D) {
         this();
         OPIDpatient.setText(Patient);
         OPRemarques.setText(Remarque);
-        OPTypeop.setText(Type);
+        OPtype.setSelectedItem(Type);
         Dp=D;
         idpatient=id;
         Dateop=Date;
@@ -64,13 +65,13 @@ public class DOpModification extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         OPIDpatient = new javax.swing.JTextField();
-        OPTypeop = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         OPRemarques = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Valider = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        OPtype = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -191,16 +192,11 @@ public class DOpModification extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setText("Remarques");
 
-        OPTypeop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OPTypeopActionPerformed(evt);
-            }
-        });
-
         OPRemarques.setColumns(20);
         OPRemarques.setRows(5);
         jScrollPane1.setViewportView(OPRemarques);
 
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel2MouseClicked(evt);
@@ -226,6 +222,7 @@ public class DOpModification extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Valider.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Valider.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ValiderMouseClicked(evt);
@@ -258,6 +255,8 @@ public class DOpModification extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        OPtype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultation", "Chirurgie", "Carrie", "Detartrage", "Blanchissement", " " }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -267,7 +266,7 @@ public class DOpModification extends javax.swing.JDialog {
                 .addComponent(Valider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,8 +279,8 @@ public class DOpModification extends javax.swing.JDialog {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(OPIDpatient)
-                    .addComponent(OPTypeop)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(OPtype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
@@ -294,7 +293,7 @@ public class DOpModification extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(OPTypeop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OPtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -377,36 +376,29 @@ public class DOpModification extends javax.swing.JDialog {
         yMouse=evt.getY();
     }//GEN-LAST:event_TopPanelMousePressed
 
-    private void OPTypeopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPTypeopActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OPTypeopActionPerformed
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        OPIDpatient.setText("");
-        OPRemarques.setText("");
-        OPTypeop.setText("");
-
-    }//GEN-LAST:event_jPanel2MouseClicked
-
-    private void ValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseClicked
-
-            String re = OPRemarques.getText();
-            String ido = OPTypeop.getText();
-            OPIDpatient.setEnabled(false);
-            D.Modifier(ido,re,idpatient,Dateop);
-            Dp.setPlaceholder();
-            Dp.Affichage();
-            dispose();
-
-    }//GEN-LAST:event_ValiderMouseClicked
+    private void ValiderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseExited
+        Valider.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_ValiderMouseExited
 
     private void ValiderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseEntered
         Valider.setBackground(new Color(91,161,73));
     }//GEN-LAST:event_ValiderMouseEntered
 
-    private void ValiderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseExited
-        Valider.setBackground(new Color(240,240,240));
-    }//GEN-LAST:event_ValiderMouseExited
+    private void ValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ValiderMouseClicked
+
+        String re = OPRemarques.getText();
+        String ido = OPtype.getSelectedItem().toString();
+        OPIDpatient.setEnabled(false);
+        D.Modifier(ido,re,idpatient,Dateop);
+        Dp.setPlaceholder();
+        Dp.Affichage();
+        dispose();
+    }//GEN-LAST:event_ValiderMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        OPIDpatient.setText("");
+        OPRemarques.setText("");
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -451,7 +443,7 @@ public class DOpModification extends javax.swing.JDialog {
     private javax.swing.JLabel NpLabel1;
     private javax.swing.JTextField OPIDpatient;
     private javax.swing.JTextArea OPRemarques;
-    private javax.swing.JTextField OPTypeop;
+    private javax.swing.JComboBox<String> OPtype;
     private javax.swing.JPanel Reducepanel;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JPanel Valider;
