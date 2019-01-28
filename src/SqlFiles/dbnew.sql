@@ -89,7 +89,7 @@ create index AUTHENTIFICATIONA2_FK on ADMINISTRATEUR
 create table ALLERGIE
 (
    DESIGNATION                    varchar(20)                    not null,
-   DEGRE                          varchar(20),
+   Description                          varchar(100),
    primary key (DESIGNATION)
 )
 ENGINE = Innodb;
@@ -112,6 +112,7 @@ create table AVOIR_ALLERGIE
 (
    ID_PATIENT                     varchar(20)                    not null,
    DESIGNATION                    varchar(20)                    not null,
+   degre                          varchar(20),
    primary key (ID_PATIENT, DESIGNATION)
 )
 ENGINE = Innodb;

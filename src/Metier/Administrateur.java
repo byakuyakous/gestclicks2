@@ -13,8 +13,8 @@ import java.sql.Date;
  */
 public class Administrateur extends Employé {
     
-    public Administrateur(String id, String login, String cin, String nom, String prenom, String sexe, String tél, String email, Date date_naissance, Date date_embauche) {
-        super(id, login, cin, nom, prenom, sexe, tél, email, date_naissance, date_embauche);
+    public Administrateur(String id, String login, String cin, String nom, String prenom, String sexe, String addr, String tél, String email, Date date_naissance, Date date_embauche) {
+        super(id, login, cin, nom, prenom, sexe, addr, tél, email, date_naissance, date_embauche);
     }
 
     public String getCin() {

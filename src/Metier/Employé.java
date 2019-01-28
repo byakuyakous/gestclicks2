@@ -18,10 +18,34 @@ public abstract class Employé {
     String nom;
     String prenom;
     String sexe;
+    String addr;
     String tél;
     String email;
     Date date_naissance;
     Date date_embauche;
+
+    public Employé(String idE, String login, String cin, String nom, String prenom, String sexe, String addr, String tél, String email, Date date_naissance, Date date_embauche) {
+        this.idE = idE;
+        this.login = login;
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.addr = addr;
+        this.tél = tél;
+        this.email = email;
+        this.date_naissance = date_naissance;
+        this.date_embauche = date_embauche;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+    
 
     public Employé(String id, String login, String cin, String nom, String prenom, String sexe, String tél, String email, Date date_naissance, Date date_embauche) {
         this.idE = id;

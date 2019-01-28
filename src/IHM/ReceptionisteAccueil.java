@@ -21,8 +21,10 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
      */
     int xMouse;
     int yMouse;
+    String idR=null;
     RPatient panel1;
-    public ReceptionisteAccueil() {
+    public ReceptionisteAccueil(String id) {
+        idR=id;
         initComponents();
         ColorPanel1.setBackground(new Color(43,149,113));
         this.setLocationRelativeTo(null);
@@ -654,7 +656,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReceptionisteAccueil().setVisible(true);
+                new ReceptionisteAccueil(null).setVisible(true);
             }
         });
     }

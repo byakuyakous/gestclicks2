@@ -20,10 +20,37 @@ public class Patient {
     String cin;
     String sexe;
     Date date_naissance;
-    Date date_creation;
+    String Adr;
     String tél;
     String email;
     String type_sang;
+    Date date_creation;
+
+    public String getAdr() {
+        return Adr;
+    }
+
+    public void setAdr(String Adr) {
+        this.Adr = Adr;
+    }
+    
+
+    public Patient(String idP, String idR, String idD, String nom, String prenom, String cin, String sexe, Date date_naissance, String Adr, String tél, String email, String type_sang, Date date_creation) {
+        this.idP = idP;
+        this.idR = idR;
+        this.idD = idD;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.cin = cin;
+        this.sexe = sexe;
+        this.date_naissance = date_naissance;
+        this.Adr = Adr;
+        this.tél = tél;
+        this.email = email;
+        this.type_sang = type_sang;
+        this.date_creation = date_creation;
+    }
+    
 
     public Patient(String idP, String idR, String idD, String nom, String prenom, String cin, String sexe, Date date_naissance, Date date_creation, String tél, String email, String type_sang) {
         this.idP = idP;

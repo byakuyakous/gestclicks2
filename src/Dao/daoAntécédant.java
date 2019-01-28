@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -79,6 +81,32 @@ public class daoAntécédant {
             System.err.println(ex.getMessage());
         }
     }
+   public ResultSet PatientAntecedant(String id)
+     {
+          ResultSet Rs=null;
+        try {
+            Statement st=Conn.createStatement();
+            Rs=st.executeQuery("select avoir_antecedant.DESIGNATION,antecedant.Description from avoir_antecedant,antecedant where ID_PATIENT="+"'"+id+"'"+"and avoir_antecedant.DESIGNATION=antecedant.DESIGNATION");
+            
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+     }
+   public void insertPatienAntecedant(String a,String id)
+   {
+       PreparedStatement st;
+       
+            try {
+                st=Conn.prepareStatement("insert into avoir_antecedant values (?,?)");
+                 st.setString(1, id);
+                st.setString(2, a);
+                st.execute();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(daoAntécédant.class.getName()).log(Level.SEVERE, null, ex);
+            }
+   }
           
     
 }

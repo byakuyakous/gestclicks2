@@ -83,6 +83,35 @@ public class daoAllérgie {
             System.err.println(ex.getMessage());
         }
     }
+     public ResultSet PatientAllergie(String id)
+     {
+          ResultSet Rs=null;
+        try {
+            Statement st=Conn.createStatement();
+            Rs=st.executeQuery("select avoir_allergie.DESIGNATION,allergie.Description,avoir_allergie.degre from avoir_allergie,allergie where ID_PATIENT="+"'"+id+"' and avoir_allergie.DESIGNATION=allergie.DESIGNATION");
+            
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+     }
+ 
+  public void insertPatienAllergie(String a,String id,String Degre)
+   {
+       PreparedStatement st;
+       
+            try {
+                st=Conn.prepareStatement("insert into avoir_allergie values (?,?,?)");
+                 st.setString(1, id);
+                st.setString(2, a);
+                st.setString(3, Degre);
+                st.execute();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(daoAntécédant.class.getName()).log(Level.SEVERE, null, ex);
+            }
+   }
+    
     
     
 }
