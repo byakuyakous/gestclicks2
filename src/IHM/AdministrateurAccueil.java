@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 package IHM;
-
+import Dao.*;
+import Metier.*;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 
 /**
@@ -18,12 +21,30 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
      * Creates new form AdministrateurAccueil
      * 
      */
+    
     int xMouse;
     int yMouse;
+    AListeEmployes panel1;
+    ANewEmploye panel2;
+    AListeCompte panel3;
     public AdministrateurAccueil() {
         initComponents();
-         ColorPanel1.setBackground(new Color(43,149,113));
+        ColorPanel1.setBackground(new Color(43,149,113));
         this.setLocationRelativeTo(null);
+        panel1=new AListeEmployes();
+        panel2=new ANewEmploye();
+        panel3=new AListeCompte();
+        DynamicPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c=new GridBagConstraints();
+        c.gridx=c.gridy=0;
+        DynamicPanel.add(panel1,c);
+        c.gridx=c.gridy=0;
+        DynamicPanel.add(panel2,c);
+        c.gridx=c.gridy=0;
+        DynamicPanel.add(panel3,c);
+        panel1.setVisible(true);
+        panel2.setVisible(false);
+        panel3.setVisible(false);
     }
 
     /**
@@ -64,6 +85,7 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
         DynamicPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         TopPanel.setBackground(new java.awt.Color(51, 129, 162));
         TopPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -182,6 +204,9 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
 
         GestPanel.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanelMouseEntered(evt);
             }
@@ -222,7 +247,7 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
                 .addComponent(ColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ImgLabel)
-                .addGap(14, 14, 14)
+                .addGap(3, 3, 3)
                 .addComponent(TextLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         GestPanelLayout.setVerticalGroup(
@@ -245,6 +270,9 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
 
         GestPanel1.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanel1MouseEntered(evt);
             }
@@ -303,6 +331,9 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
 
         GestPanel2.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanel2MouseEntered(evt);
             }
@@ -317,7 +348,7 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
         TextLabel2.setBackground(new java.awt.Color(255, 255, 255));
         TextLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         TextLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        TextLabel2.setText("  Liste Employées");
+        TextLabel2.setText("  Compte");
 
         ImgLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/users.png"))); // NOI18N
 
@@ -445,20 +476,18 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
                 .addComponent(GestPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GestPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        DynamicPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout DynamicPanelLayout = new javax.swing.GroupLayout(DynamicPanel);
         DynamicPanel.setLayout(DynamicPanelLayout);
         DynamicPanelLayout.setHorizontalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 783, Short.MAX_VALUE)
         );
         DynamicPanelLayout.setVerticalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 446, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -502,7 +531,7 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jPanel3MouseClicked
-
+    
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
         // TODO add your handling code here:
         jPanel3.setBackground(new Color(58,67,94));
@@ -597,6 +626,25 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
         ColorPanel.setBackground(new Color(58,67,94));
     }//GEN-LAST:event_GestPanel3MousePressed
 
+    private void GestPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseClicked
+        panel1.setVisible(false);
+        panel2.setVisible(false);
+        panel3.setVisible(true);
+        panel3.Affichage();
+    }//GEN-LAST:event_GestPanel2MouseClicked
+
+    private void GestPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseClicked
+       panel1.setVisible(true);
+       panel2.setVisible(false);
+       panel3.setVisible(false);
+    }//GEN-LAST:event_GestPanel1MouseClicked
+
+    private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
+       panel1.setVisible(false);
+       panel2.setVisible(true);
+       panel3.setVisible(false);
+    }//GEN-LAST:event_GestPanelMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -608,7 +656,7 @@ public class AdministrateurAccueil extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
