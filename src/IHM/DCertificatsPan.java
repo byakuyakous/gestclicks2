@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class DCertificatsPan extends javax.swing.JPanel {
     DaoCertificat C = new DaoCertificat();
+    String IdD="12";
     
     /**
      * Creates new form DCertificatsPan
@@ -28,7 +29,8 @@ public class DCertificatsPan extends javax.swing.JPanel {
         NombreCertificat();
     }
         public void Afficher(){
-        ResultSet Res = C.Read("12");
+            
+        ResultSet Res = C.Read(IdD);
         Certificats.setModel(new CertificatModel(Res));
         
     }
@@ -36,7 +38,7 @@ public class DCertificatsPan extends javax.swing.JPanel {
     {
         
         try {
-            ResultSet nbrOp = C.NombreCertif("12");
+            ResultSet nbrOp = C.NombreCertif(IdD);
             nbrOp.next();
              this.nbrOp.setText(nbrOp.getString(1));
         } catch (SQLException ex) {
@@ -60,6 +62,7 @@ public class DCertificatsPan extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        Certificats.setAutoCreateRowSorter(true);
         Certificats.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},

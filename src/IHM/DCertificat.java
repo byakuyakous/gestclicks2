@@ -34,6 +34,7 @@ import javax.swing.JOptionPane;
 public class DCertificat extends javax.swing.JFrame {
     String idp;
     String Nom;
+    String IdD="12";
     DaoCertificat Certificat = new DaoCertificat();
     
     /**
@@ -327,7 +328,7 @@ public class DCertificat extends javax.swing.JFrame {
          //inserer ordonnance dans la table
             String Ord =TextCertif.getText();
             java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            Certificat.Create(idp,"12", Date, Ord);
+            Certificat.Create(idp,IdD, Date, Ord);
         Document doc= new Document();
         doc.setPageSize(PageSize.A6);
        

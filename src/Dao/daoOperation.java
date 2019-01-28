@@ -41,12 +41,12 @@ public class daoOperation {
 
     }
 
-    public ResultSet Afficher() {
+    public ResultSet Afficher(String iddentiste) {
         ResultSet Resultat = null;
         try {
             St = Con.createStatement();
             Resultat = St.executeQuery("select P.nom,O.id_patient,O.typeop,O.dateop,O.remarques "
-                    + "from operer O,patient P where P.id_patient=O.id_patient");
+                    + "from operer O,patient P where P.id_patient=O.id_patient and O.id_dentiste="+iddentiste);
             System.out.println("Affichage des operations : ");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

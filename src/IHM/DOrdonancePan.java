@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class DOrdonancePan extends javax.swing.JPanel {
   DaoOrdonance D = new DaoOrdonance();
+  String IdD="12";
     /**
      * Creates new form DOrdonancePan
      */
@@ -27,14 +28,14 @@ public class DOrdonancePan extends javax.swing.JPanel {
         NombreOrdonnance();
     }
     public void Afficher(){
-        ResultSet Res = D.Read("12");
+        ResultSet Res = D.Read(IdD);
         Odonnances.setModel(new OrdonanceModel(Res));
     }
         public void NombreOrdonnance()
     {
         
         try {
-            ResultSet nbrOp = D.NombreOrd("12");
+            ResultSet nbrOp = D.NombreOrd(IdD);
             nbrOp.next();
              this.nbrOp.setText(nbrOp.getString(1));
         } catch (SQLException ex) {
@@ -59,6 +60,7 @@ public class DOrdonancePan extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        Odonnances.setAutoCreateRowSorter(true);
         Odonnances.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},

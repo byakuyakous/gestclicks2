@@ -37,6 +37,7 @@ public class DOrdonance extends javax.swing.JFrame {
     DaoOrdonance Ordonance = new DaoOrdonance();
     String idp;
     String Nom;
+    String IdD="12";
     /**
      * Creates new form DOrdonance
      */
@@ -345,7 +346,7 @@ public class DOrdonance extends javax.swing.JFrame {
             //inserer ordonnance dans la table
             String Ord =texteOrd.getText();
             java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            Ordonance.Create(idp,"12", Date, Ord);
+            Ordonance.Create(idp,IdD, Date, Ord);
             //code de creation du pdf 
             Document doc= new Document();
             doc.setPageSize(PageSize.A6);

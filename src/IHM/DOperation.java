@@ -29,7 +29,8 @@ public class DOperation extends javax.swing.JPanel {
 
     daoOperation Operation = new daoOperation();
     OperationModel O = new OperationModel();
-    String idsuppr;
+    String idpsuppr;
+    String IdD="12";
     
     /**
      * Creates new form DOperation
@@ -43,7 +44,7 @@ public class DOperation extends javax.swing.JPanel {
     }
 
     public void Affichage() {
-        ResultSet OpAffichage = Operation.Afficher();
+        ResultSet OpAffichage = Operation.Afficher(IdD);
         operationtable.setModel(new OperationModel(OpAffichage));
 
     }
@@ -79,7 +80,7 @@ public class DOperation extends javax.swing.JPanel {
     {
         
         try {
-            ResultSet nbrOp = Operation.NombreOp("12");
+            ResultSet nbrOp = Operation.NombreOp(IdD);
             nbrOp.next();
              this.nbrOp.setText(nbrOp.getString(1));
         } catch (SQLException ex) {
@@ -376,7 +377,7 @@ public class DOperation extends javax.swing.JPanel {
  
             int row = operationtable.getSelectedRow();
             if (row != -1) {
-               idsuppr = operationtable.getValueAt(row, 1).toString();
+               idpsuppr = operationtable.getValueAt(row, 1).toString();
 
             }
         }
@@ -391,7 +392,7 @@ public class DOperation extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        Operation.Supprimer(idsuppr,"12");
+        Operation.Supprimer(idpsuppr,IdD);
        Affichage();
     }//GEN-LAST:event_jLabel2MouseClicked
 

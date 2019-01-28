@@ -18,6 +18,7 @@ public class DAjoutOperation extends javax.swing.JFrame {
     DOperation D ;
     DAffichagePatients P;
     String idp;
+    String IdD="12";
     int xMouse;
     int yMouse;
     /**
@@ -404,12 +405,10 @@ public class DAjoutOperation extends javax.swing.JFrame {
             java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); 
             String typeoperation = OPTypeop.getSelectedItem().toString();
             String remarques = OPRemarques.getText().toString();
-            Operation.Ajouter(idp,"12", typeoperation, Date, remarques);
+            Operation.Ajouter(idp,IdD, typeoperation, Date, remarques);
             Reinitialiser();
             dispose();
-            P.AffichageOp(idp);
-            
-            
+            P.AffichageOp(idp);  
         }
     }//GEN-LAST:event_ValiderMouseClicked
 
