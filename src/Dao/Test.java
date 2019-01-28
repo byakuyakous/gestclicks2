@@ -11,6 +11,6 @@ package Dao;
  */
 public class Test {
     
-    
+   int k;
     
 }
