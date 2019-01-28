@@ -44,22 +44,29 @@ public class RRDV extends javax.swing.JPanel {
         }
     
         //end ComboRDV
+        Calendar cal = Calendar.getInstance();
+        DateRDVJ.setCalendar(cal);
         Affichage();
         
     }
     
     public void Affichage()
     {
-//      //Date d = (Date) jDateChooser1.getDate();
-        
+        //Affichage Dentiste
         ResultSet RDVAffichageD = daoRDV.ReadAll();
         TableRDVD.setModel(new RendezVousModele(RDVAffichageD));
-        
         //Affichage Ajout 
         ResultSet RDVAffichageP = daoP.ReadShort();
         RDVAjout.setModel(new RendezVousShortModele(RDVAffichageP));
-////      TableRDVM.setModel(new RendezVousModele(RDVAffichage));
-////     TableRDVJ.setModel(new RendezVousModele(RDVAffichage));
+        //Affichage Jour
+        Date d=new Date(DateRDVJ.getCalendar().getTime().getTime());
+        System.out.println(d);
+        ResultSet RDVAffichageJ = daoRDV.ReadJ(d);
+        TableRDVJ.setModel(new RendezVousModele(RDVAffichageJ));
+        //Affichage Mois
+        //int m = 
+        //ResultSet RDVAffichageM = daoRDV.ReadM(m);
+        //TableRDVM.setModel(new RendezVousModele(RDVAffichageM));
         
 ////      TableRDVP.setModel(new RendezVousModele(RDVAffichage));
     }
@@ -95,7 +102,7 @@ public class RRDV extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         TableRDVM = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
+        DateRDVM = new com.toedter.calendar.JMonthChooser();
         ParDentiste = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         ComboDentisteRDV = new javax.swing.JComboBox<>();
@@ -291,30 +298,29 @@ public class RRDV extends javax.swing.JPanel {
         ParJour.setLayout(ParJourLayout);
         ParJourLayout.setHorizontalGroup(
             ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
+            .addGroup(ParJourLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DateRDVJ, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(578, Short.MAX_VALUE))
             .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParJourLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ParJourLayout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(DateRDVJ, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(544, 544, 544)))
+                    .addComponent(jScrollPane2)
                     .addContainerGap()))
         );
         ParJourLayout.setVerticalGroup(
             ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+            .addGroup(ParJourLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DateRDVJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(253, Short.MAX_VALUE))
             .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParJourLayout.createSequentialGroup()
-                    .addGap(50, 50, 50)
-                    .addGroup(ParJourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DateRDVJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
+                    .addGap(88, 88, 88)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -359,6 +365,12 @@ public class RRDV extends javax.swing.JPanel {
 
         jLabel2.setText("Date du rendez-vous:");
 
+        DateRDVM.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                DateRDVMPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout ParMoisLayout = new javax.swing.GroupLayout(ParMois);
         ParMois.setLayout(ParMoisLayout);
         ParMoisLayout.setHorizontalGroup(
@@ -367,7 +379,7 @@ public class RRDV extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DateRDVM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(543, Short.MAX_VALUE))
             .addGroup(ParMoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParMoisLayout.createSequentialGroup()
@@ -381,7 +393,7 @@ public class RRDV extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(ParMoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DateRDVM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(289, Short.MAX_VALUE))
             .addGroup(ParMoisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ParMoisLayout.createSequentialGroup()
@@ -614,7 +626,6 @@ public class RRDV extends javax.swing.JPanel {
 
     private void ComboDentisteRDVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboDentisteRDVItemStateChanged
 
-        daoRendezVous daoRDV = new daoRendezVous();
         ResultSet RDVAffichage;
         String s=ComboDentisteRDV.getSelectedItem().toString();
         
@@ -627,16 +638,23 @@ public class RRDV extends javax.swing.JPanel {
       TableRDVD.setModel(new RendezVousModele(RDVAffichage));
 
     }//GEN-LAST:event_ComboDentisteRDVItemStateChanged
-
+    
     private void DateRDVJPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DateRDVJPropertyChange
-
-       // DateRDVJ.setDate(new Date());
-//        System.out.println(DateRDVJ.getDate().getTime());
-//        System.out.println(DateRDVJ.getDate().getTime());
-//           Date ourJavaDateObject = new Date(Calendar.getInstance().getTime().getTime());
-
+ 
+        ResultSet RDVAffichage;
+        Date d=new Date(DateRDVJ.getCalendar().getTime().getTime());
+        RDVAffichage = daoRDV.ReadJ(d); 
+        TableRDVJ.setModel(new RendezVousModele(RDVAffichage));
+        
 
     }//GEN-LAST:event_DateRDVJPropertyChange
+
+    private void DateRDVMPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DateRDVMPropertyChange
+       ResultSet RDVAffichage;
+        int m=DateRDVM.getMonth()+1;
+        RDVAffichage = daoRDV.ReadM(m); 
+        TableRDVM.setModel(new RendezVousModele(RDVAffichage));
+    }//GEN-LAST:event_DateRDVMPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -644,6 +662,7 @@ public class RRDV extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> ComboDentisteRDV;
     private com.toedter.calendar.JDateChooser DateOp;
     private com.toedter.calendar.JDateChooser DateRDVJ;
+    private com.toedter.calendar.JMonthChooser DateRDVM;
     private javax.swing.JComboBox<String> HeureOP;
     private javax.swing.JPanel Nouveau;
     private javax.swing.JPanel ParDentiste;
@@ -664,7 +683,6 @@ public class RRDV extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
