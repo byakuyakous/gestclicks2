@@ -34,7 +34,7 @@ public class DDefautPan extends javax.swing.JPanel {
         Affichage();
         nbrPatients();
         Filtrer();
-        timer();
+    
        
     }
       public void Affichage() {
@@ -78,66 +78,7 @@ public class DDefautPan extends javax.swing.JPanel {
             }
         });
     }  
-    public void timer(){
-        java.util.Timer timer = new Timer();
-        //Set the schedule function
-        timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    // Magic here
-                    Calendar cal=new GregorianCalendar(Locale.FRANCE);
-                        int month = cal.get(Calendar.MONTH);
-                        int year = cal.get(Calendar.YEAR);
-                        int day = cal.get(Calendar.DAY_OF_MONTH);
-                        month++ ;
-                        String jour = ""+day ;
-                        String mois = ""+month;
-        
-                        if(day <10)
-                        {
-                          jour = "0"+day;
-                        }
-                        if (month <10)
-                        {
-                        mois = "0"+month;
-                        }
-        
-       
-                        Date.setText("Date : "+jour + "/" + mois + "/" + year );
-        
-                        int seconde = cal.get(Calendar.SECOND);
-                        int minute = cal.get(Calendar.MINUTE);
-                        int heure = cal.get(Calendar.HOUR);
-                        String sec=""+seconde;
-                        String min =""+minute;
-                        String hour =""+heure;
-                        if(seconde <10)
-                        {
-                          sec = "0"+seconde;
-                        }
-                        if(heure <10)
-                        {
-                          hour = "0"+hour;
-                        }
-                        if(minute <10)
-                        {
-                          min = "0"+minute;
-                        }
-                        
-        
-                        Time.setText("Time : " +hour+":"+min+":"+sec );
-        
-                        if (cal.get(Calendar.AM_PM)==Calendar.PM)
-                        {
-                            AmPm.setText("PM");
-                        }
-                        else{
-                            AmPm.setText("AM");
-                        }
-                                }
-                            },
-                0, 1000);
-                    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,9 +96,6 @@ public class DDefautPan extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         RechercherP = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        Date = new javax.swing.JLabel();
-        Time = new javax.swing.JLabel();
-        AmPm = new javax.swing.JLabel();
         nbrOp = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -232,12 +170,6 @@ public class DDefautPan extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel1.setText("Mes Patients");
 
-        Date.setText("jLabel2");
-
-        Time.setText("jLabel5");
-
-        AmPm.setText("AM");
-
         nbrOp.setText("12");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
@@ -255,12 +187,7 @@ public class DDefautPan extends javax.swing.JPanel {
                     .addGroup(AcceuilPanelLayout.createSequentialGroup()
                         .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(AcceuilPanelLayout.createSequentialGroup()
-                                .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AmPm)
-                                .addGap(105, 105, 105)
+                                .addGap(307, 307, 307)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4))
@@ -283,14 +210,9 @@ public class DDefautPan extends javax.swing.JPanel {
                 .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AcceuilPanelLayout.createSequentialGroup()
                         .addGap(0, 22, Short.MAX_VALUE)
-                        .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(nbrOp))
-                            .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Date)
-                                .addComponent(Time)
-                                .addComponent(AmPm)))
+                        .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(nbrOp))
                         .addGap(32, 32, 32)
                         .addGroup(AcceuilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(RechercherP, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,11 +271,8 @@ public class DDefautPan extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AcceuilPanel;
-    private javax.swing.JLabel AmPm;
-    private javax.swing.JLabel Date;
     private javax.swing.JTable MesPatients;
     private javax.swing.JTextField RechercherP;
-    private javax.swing.JLabel Time;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

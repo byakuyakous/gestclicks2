@@ -5,19 +5,83 @@
  */
 package IHM;
 
+import Dao.daoOperation;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 /**
  *
  * @author hatim
  */
 public class DStatsPan extends javax.swing.JPanel {
-
+    daoOperation Operation = new daoOperation();
     /**
      * Creates new form DStatsPan
      */
     public DStatsPan() {
         initComponents();
+        Barchart();
+        
     }
+    public void Barchart(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(NbrOperation("Consultation"), "type Operation", "Consultation");
+        dataset.setValue(NbrOperation("Detartrage"), "type Operation", "Detartrage");
+        dataset.setValue(NbrOperation("Carrie"), "type Operation", "Soin Carrie");
+        dataset.setValue(NbrOperation("Blanchissement"), "type Operation", "Blanchissement");
+        dataset.setValue(NbrOperation("Chirurgie"), "type Operation", "Chirurgie");
+        
+        
 
+        JFreeChart Jchart = ChartFactory.createBarChart3D("","Type operation" , "Frequence", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Jchart.setBackgroundPaint(Color.white);
+        CategoryPlot plot = Jchart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.BLACK);
+        plot.setBackgroundPaint(new Color(232,232,232));
+        plot.setRangeGridlinePaint(Color.white);
+        
+        
+        ChartFrame chartframe = new ChartFrame("Student Reccord",Jchart,true);
+        final BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setDrawBarOutline(false);
+        renderer.setItemMargin(0.10);
+        
+        final GradientPaint gp0 = new GradientPaint(
+            0.0f, 0.0f, new Color(151,234,210), 
+            0.0f, 0.0f, Color.lightGray
+        );
+        
+        renderer.setSeriesPaint(0, gp0);
+        
+        ChartPanel chartpanel =  new ChartPanel(Jchart);
+        ReportPanel.removeAll();
+        ReportPanel.add(chartpanel);
+        ReportPanel.updateUI();
+    }
+    public int NbrOperation(String Type)
+    {
+        int Res=0;
+          try {
+            ResultSet nbrOp = Operation.NombreOpbytype(Type);
+            nbrOp.next();
+            Res=(nbrOp.getInt("nb")); //getString(1)
+        } catch (SQLException ex) {
+            Logger.getLogger(DOperation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          return Res;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,43 +91,27 @@ public class DStatsPan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        ReportPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/stats.jpg"))); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel2.setText("Statistiques Medicales");
+        ReportPanel.setPreferredSize(new java.awt.Dimension(740, 300));
+        ReportPanel.setLayout(new javax.swing.BoxLayout(ReportPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+            .addComponent(ReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(ReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel ReportPanel;
     // End of variables declaration//GEN-END:variables
 }

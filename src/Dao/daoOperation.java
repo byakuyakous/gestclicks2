@@ -89,7 +89,16 @@ public class daoOperation {
         }
         return Resultat;
     }
-
+      public ResultSet NombreOpbytype(String type) {
+        ResultSet Resultat = null;
+        try {
+            St = Con.createStatement();
+            Resultat = St.executeQuery("select count(*) nb from operer where typeop='" + type + "'");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return Resultat;
+    }
     public void Supprimer(String idp, String idd) {
         try {
             PreparedStatement Pst = Con.prepareStatement("delete from operer where id_dentiste=? and id_patient=?");

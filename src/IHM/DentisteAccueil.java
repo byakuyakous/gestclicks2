@@ -9,6 +9,11 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 
 /**
@@ -42,11 +47,71 @@ public class DentisteAccueil extends javax.swing.JFrame {
         Doperation.setVisible(false);
         EspaceP.setVisible(false);
         setIcon();
+        timer();
     }
     private void setIcon() {
        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imgs/iconacceuil.png")));
     }
-
+     public void timer(){
+        java.util.Timer timer = new Timer();
+        //Set the schedule function
+        timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    // Magic here
+                    Calendar cal=new GregorianCalendar(Locale.FRANCE);
+                        int month = cal.get(Calendar.MONTH);
+                        int year = cal.get(Calendar.YEAR);
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+                        month++ ;
+                        String jour = ""+day ;
+                        String mois = ""+month;
+        
+                        if(day <10)
+                        {
+                          jour = "0"+day;
+                        }
+                        if (month <10)
+                        {
+                        mois = "0"+month;
+                        }
+        
+       
+                        Date.setText("Date : "+jour + "/" + mois + "/" + year );
+        
+                        int seconde = cal.get(Calendar.SECOND);
+                        int minute = cal.get(Calendar.MINUTE);
+                        int heure = cal.get(Calendar.HOUR);
+                        String sec=""+seconde;
+                        String min =""+minute;
+                        String hour =""+heure;
+                        if(seconde <10)
+                        {
+                          sec = "0"+seconde;
+                        }
+                        if(heure <10)
+                        {
+                          hour = "0"+hour;
+                        }
+                        if(minute <10)
+                        {
+                          min = "0"+minute;
+                        }
+                        
+        
+                        Time.setText("Time : " +hour+":"+min+":"+sec );
+        
+                        if (cal.get(Calendar.AM_PM)==Calendar.PM)
+                        {
+                            AmPm.setText("PM");
+                        }
+                        else{
+                            AmPm.setText("AM");
+                        }
+                                }
+                            },
+                0, 1000);
+                    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +147,9 @@ public class DentisteAccueil extends javax.swing.JFrame {
         TextLabel3 = new javax.swing.JLabel();
         ImgLabel3 = new javax.swing.JLabel();
         ColorPanel3 = new javax.swing.JPanel();
+        AmPm = new javax.swing.JLabel();
+        Time = new javax.swing.JLabel();
+        Date = new javax.swing.JLabel();
         DynamicPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -441,6 +509,18 @@ public class DentisteAccueil extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        AmPm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        AmPm.setForeground(new java.awt.Color(255, 255, 255));
+        AmPm.setText("AM");
+
+        Time.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Time.setForeground(new java.awt.Color(255, 255, 255));
+        Time.setText("jLabel5");
+
+        Date.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Date.setForeground(new java.awt.Color(255, 255, 255));
+        Date.setText("jLabel2");
+
         javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
         LeftPanel.setLayout(LeftPanelLayout);
         LeftPanelLayout.setHorizontalGroup(
@@ -448,20 +528,34 @@ public class DentisteAccueil extends javax.swing.JFrame {
             .addComponent(GestPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(GestPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(GestPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
-                .addComponent(GestPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(LeftPanelLayout.createSequentialGroup()
+                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GestPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LeftPanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NpLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NpLabel))
+                .addContainerGap()
+                .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AmPm)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LeftPanelLayout.setVerticalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
+                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Date)
+                    .addComponent(Time)
+                    .addComponent(AmPm))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(NpLabel)
@@ -627,19 +721,22 @@ public class DentisteAccueil extends javax.swing.JFrame {
 
     private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
         Ddefault.setVisible(false);
-        Doperation.Affichage();
         Doperation.setVisible(true);
+        EspaceP.setVisible(false);
+        Doperation.Affichage();
     }//GEN-LAST:event_GestPanelMouseClicked
 
     private void GestPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseClicked
         Ddefault.setVisible(true);
         Doperation.setVisible(false);
+        EspaceP.setVisible(false);
     }//GEN-LAST:event_GestPanel1MouseClicked
 
     private void GestPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseClicked
         Ddefault.setVisible(false);
         Doperation.setVisible(false);
         EspaceP.setVisible(true);
+        
     }//GEN-LAST:event_GestPanel2MouseClicked
 
     /**
@@ -685,10 +782,12 @@ public class DentisteAccueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AmPm;
     private javax.swing.JPanel ColorPanel;
     private javax.swing.JPanel ColorPanel1;
     private javax.swing.JPanel ColorPanel2;
     private javax.swing.JPanel ColorPanel3;
+    private javax.swing.JLabel Date;
     private javax.swing.JPanel DynamicPanel;
     private javax.swing.JLabel ExitPanel;
     private javax.swing.JLabel ExitPanel1;
@@ -708,6 +807,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel TextLabel1;
     private javax.swing.JLabel TextLabel2;
     private javax.swing.JLabel TextLabel3;
+    private javax.swing.JLabel Time;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
