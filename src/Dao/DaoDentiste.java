@@ -130,6 +130,20 @@ public class DaoDentiste {
         }
         return Rs;
     }
+     public  ResultSet Lister(){
+        ResultSet Res=null;
+        try
+        {
+            St = Con.createStatement();
+            Res=St.executeQuery("Select * from dentiste;");
+            
+        }
+        catch (SQLException ex) 
+        {
+            System.err.println("Requete afficher erronnée !! "+ ex.getMessage());
+        }
+        return Res;
+    }
     
    
  

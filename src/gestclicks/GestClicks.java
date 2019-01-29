@@ -6,7 +6,7 @@
 package gestclicks;
 import Dao.*;
 import Metier.Patient;
-import Metier.Réceptionniste;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;

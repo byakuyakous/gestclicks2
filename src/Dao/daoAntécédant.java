@@ -44,6 +44,17 @@ public class daoAntécédant {
         }
         return Rs;
     }
+          public ResultSet ReadpatientAntecedant(String idA)//hatim
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Conn.createStatement();
+            Rs=st.executeQuery("select A.Designation,A.Description from Antecedant A,avoir_antecedant AA where AA.id_patient='"+idA+"'and A.Designation=AA.Designation");   
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+    }
  public ResultSet ReadAll()
     {    
         ResultSet Rs=null;

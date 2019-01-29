@@ -111,7 +111,19 @@ public class daoAllérgie {
                 Logger.getLogger(daoAntécédant.class.getName()).log(Level.SEVERE, null, ex);
             }
    }
-    
+    public ResultSet Readpatientallergies(String idA)//
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Conn.createStatement();
+            Rs=st.executeQuery("select A.Designation,AA.degre from allergie A,avoir_allergie AA "
+                    + "where AA.id_patient='"+idA+"' and A.Designation=AA.Designation");
+            
+        } catch (SQLException ex) {
+              System.err.println(ex.getMessage());
+        }
+        return Rs;
+    }
     
     
 }

@@ -27,19 +27,37 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
     String idR=null;
-    RPatient panel1;
+     RAccueil PanelAcc;
+    RPatient PanelPatient;
+    RRDV PanelRdv;
     public ReceptionisteAccueil(String id) {
-        timer();
+       
         idR=id;
         initComponents();
         ColorPanel1.setBackground(new Color(43,149,113));
         this.setLocationRelativeTo(null);
-        panel1=new RPatient();
+        
+
+        
         DynamicPanel.setLayout(new GridBagLayout());
         GridBagConstraints c=new GridBagConstraints();
         c.gridx=c.gridy=0;
-        DynamicPanel.add(panel1,c);
-        panel1.setVisible(false);
+        
+        PanelAcc=new RAccueil();
+        DynamicPanel.add(PanelAcc,c);
+        PanelAcc.setVisible(true);
+        
+        PanelPatient=new RPatient();
+        
+        
+        DynamicPanel.add(PanelPatient,c);
+        PanelPatient.setVisible(false);
+        
+        PanelRdv=new RRDV();
+        DynamicPanel.add(PanelRdv,c);
+        PanelRdv.setVisible(false);
+        
+        
         
     }
 
@@ -61,21 +79,21 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         NpLabel1 = new javax.swing.JLabel();
         NpLabel2 = new javax.swing.JLabel();
         LeftPanel = new javax.swing.JPanel();
-        GestPanel = new javax.swing.JPanel();
+        Patient = new javax.swing.JPanel();
         TextLabel = new javax.swing.JLabel();
         ImgLabel = new javax.swing.JLabel();
         ColorPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         NpLabel = new javax.swing.JLabel();
-        GestPanel1 = new javax.swing.JPanel();
+        Accueil = new javax.swing.JPanel();
         TextLabel1 = new javax.swing.JLabel();
         ImgLabel1 = new javax.swing.JLabel();
         ColorPanel1 = new javax.swing.JPanel();
-        GestPanel2 = new javax.swing.JPanel();
+        RDV = new javax.swing.JPanel();
         TextLabel2 = new javax.swing.JLabel();
         ImgLabel2 = new javax.swing.JLabel();
         ColorPanel2 = new javax.swing.JPanel();
-        GestPanel3 = new javax.swing.JPanel();
+        Deconnexion = new javax.swing.JPanel();
         TextLabel3 = new javax.swing.JLabel();
         ImgLabel3 = new javax.swing.JLabel();
         ColorPanel3 = new javax.swing.JPanel();
@@ -213,19 +231,19 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
 
         LeftPanel.setBackground(new java.awt.Color(58, 67, 94));
 
-        GestPanel.setBackground(new java.awt.Color(58, 67, 94));
-        GestPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        Patient.setBackground(new java.awt.Color(58, 67, 94));
+        Patient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GestPanelMouseClicked(evt);
+                PatientMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GestPanelMouseEntered(evt);
+                PatientMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                GestPanelMouseExited(evt);
+                PatientMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                GestPanelMousePressed(evt);
+                PatientMousePressed(evt);
             }
         });
 
@@ -249,22 +267,22 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout GestPanelLayout = new javax.swing.GroupLayout(GestPanel);
-        GestPanel.setLayout(GestPanelLayout);
-        GestPanelLayout.setHorizontalGroup(
-            GestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout PatientLayout = new javax.swing.GroupLayout(Patient);
+        Patient.setLayout(PatientLayout);
+        PatientLayout.setHorizontalGroup(
+            PatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PatientLayout.createSequentialGroup()
                 .addComponent(ColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ImgLabel)
                 .addGap(14, 14, 14)
                 .addComponent(TextLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        GestPanelLayout.setVerticalGroup(
-            GestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestPanelLayout.createSequentialGroup()
+        PatientLayout.setVerticalGroup(
+            PatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PatientLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(GestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(PatientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TextLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ColorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ImgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -278,16 +296,19 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         NpLabel.setForeground(new java.awt.Color(255, 255, 255));
         NpLabel.setText("Nom et prenom");
 
-        GestPanel1.setBackground(new java.awt.Color(58, 67, 94));
-        GestPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Accueil.setBackground(new java.awt.Color(58, 67, 94));
+        Accueil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AccueilMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GestPanel1MouseEntered(evt);
+                AccueilMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                GestPanel1MouseExited(evt);
+                AccueilMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                GestPanel1MousePressed(evt);
+                AccueilMousePressed(evt);
             }
         });
 
@@ -311,11 +332,11 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout GestPanel1Layout = new javax.swing.GroupLayout(GestPanel1);
-        GestPanel1.setLayout(GestPanel1Layout);
-        GestPanel1Layout.setHorizontalGroup(
-            GestPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout AccueilLayout = new javax.swing.GroupLayout(Accueil);
+        Accueil.setLayout(AccueilLayout);
+        AccueilLayout.setHorizontalGroup(
+            AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccueilLayout.createSequentialGroup()
                 .addComponent(ColorPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ImgLabel1)
@@ -323,27 +344,30 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addComponent(TextLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        GestPanel1Layout.setVerticalGroup(
-            GestPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestPanel1Layout.createSequentialGroup()
+        AccueilLayout.setVerticalGroup(
+            AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(GestPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TextLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ColorPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ImgLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
-        GestPanel2.setBackground(new java.awt.Color(58, 67, 94));
-        GestPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        RDV.setBackground(new java.awt.Color(58, 67, 94));
+        RDV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RDVMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GestPanel2MouseEntered(evt);
+                RDVMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                GestPanel2MouseExited(evt);
+                RDVMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                GestPanel2MousePressed(evt);
+                RDVMousePressed(evt);
             }
         });
 
@@ -367,11 +391,11 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout GestPanel2Layout = new javax.swing.GroupLayout(GestPanel2);
-        GestPanel2.setLayout(GestPanel2Layout);
-        GestPanel2Layout.setHorizontalGroup(
-            GestPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout RDVLayout = new javax.swing.GroupLayout(RDV);
+        RDV.setLayout(RDVLayout);
+        RDVLayout.setHorizontalGroup(
+            RDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RDVLayout.createSequentialGroup()
                 .addComponent(ColorPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(ImgLabel2)
@@ -379,27 +403,27 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addComponent(TextLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
-        GestPanel2Layout.setVerticalGroup(
-            GestPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestPanel2Layout.createSequentialGroup()
+        RDVLayout.setVerticalGroup(
+            RDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RDVLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(GestPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(RDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TextLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ColorPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ImgLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
-        GestPanel3.setBackground(new java.awt.Color(58, 67, 94));
-        GestPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        Deconnexion.setBackground(new java.awt.Color(58, 67, 94));
+        Deconnexion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GestPanel3MouseEntered(evt);
+                DeconnexionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                GestPanel3MouseExited(evt);
+                DeconnexionMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                GestPanel3MousePressed(evt);
+                DeconnexionMousePressed(evt);
             }
         });
 
@@ -423,11 +447,11 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout GestPanel3Layout = new javax.swing.GroupLayout(GestPanel3);
-        GestPanel3.setLayout(GestPanel3Layout);
-        GestPanel3Layout.setHorizontalGroup(
-            GestPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout DeconnexionLayout = new javax.swing.GroupLayout(Deconnexion);
+        Deconnexion.setLayout(DeconnexionLayout);
+        DeconnexionLayout.setHorizontalGroup(
+            DeconnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DeconnexionLayout.createSequentialGroup()
                 .addComponent(ColorPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addComponent(ImgLabel3)
@@ -435,11 +459,11 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addComponent(TextLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
-        GestPanel3Layout.setVerticalGroup(
-            GestPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestPanel3Layout.createSequentialGroup()
+        DeconnexionLayout.setVerticalGroup(
+            DeconnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeconnexionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(GestPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(DeconnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TextLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ColorPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ImgLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -458,12 +482,12 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         LeftPanel.setLayout(LeftPanelLayout);
         LeftPanelLayout.setHorizontalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(GestPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(GestPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(GestPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Patient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(RDV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Accueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(LeftPanelLayout.createSequentialGroup()
                 .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(GestPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Deconnexion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(LeftPanelLayout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -483,22 +507,23 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Time)
-                    .addComponent(PmAm)
-                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Time)
+                        .addComponent(PmAm)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(NpLabel)
                 .addGap(34, 34, 34)
-                .addComponent(GestPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Accueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(GestPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(GestPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(RDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(GestPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Deconnexion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
 
@@ -538,77 +563,77 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void GestPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseEntered
-       GestPanel.setBackground(new Color(96,112,157));
-    }//GEN-LAST:event_GestPanelMouseEntered
+    private void PatientMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientMouseEntered
+       Patient.setBackground(new Color(96,112,157));
+    }//GEN-LAST:event_PatientMouseEntered
 
-    private void GestPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseExited
+    private void PatientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientMouseExited
         // TODO add your handling code here:
-        GestPanel.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanelMouseExited
+        Patient.setBackground(new Color(58,67,94));
+    }//GEN-LAST:event_PatientMouseExited
 
-    private void GestPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMousePressed
+    private void PatientMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientMousePressed
         // TODO add your handling code here:
         ColorPanel.setBackground(new Color(43,149,113));
         ColorPanel1.setBackground(new Color(58,67,94));
         ColorPanel2.setBackground(new Color(58,67,94));
         ColorPanel3.setBackground(new Color(58,67,94));
 
-    }//GEN-LAST:event_GestPanelMousePressed
+    }//GEN-LAST:event_PatientMousePressed
 
-    private void GestPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseEntered
+    private void AccueilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccueilMouseEntered
         // TODO add your handling code here:
-        GestPanel1.setBackground(new Color(96,112,157));
-    }//GEN-LAST:event_GestPanel1MouseEntered
+        Accueil.setBackground(new Color(96,112,157));
+    }//GEN-LAST:event_AccueilMouseEntered
 
-    private void GestPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseExited
+    private void AccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccueilMouseExited
         // TODO add your handling code here:
-          GestPanel1.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel1MouseExited
+          Accueil.setBackground(new Color(58,67,94));
+    }//GEN-LAST:event_AccueilMouseExited
 
-    private void GestPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MousePressed
+    private void AccueilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccueilMousePressed
         // TODO add your handling code here:
         ColorPanel1.setBackground(new Color(43,149,113));
         ColorPanel.setBackground(new Color(58,67,94));
         ColorPanel2.setBackground(new Color(58,67,94));
         ColorPanel3.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel1MousePressed
+    }//GEN-LAST:event_AccueilMousePressed
 
-    private void GestPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseEntered
+    private void RDVMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RDVMouseEntered
         // TODO add your handling code here:
-          GestPanel2.setBackground(new Color(96,112,157));
-    }//GEN-LAST:event_GestPanel2MouseEntered
+          RDV.setBackground(new Color(96,112,157));
+    }//GEN-LAST:event_RDVMouseEntered
 
-    private void GestPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseExited
+    private void RDVMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RDVMouseExited
         // TODO add your handling code here:
-        GestPanel2.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel2MouseExited
+        RDV.setBackground(new Color(58,67,94));
+    }//GEN-LAST:event_RDVMouseExited
 
-    private void GestPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MousePressed
+    private void RDVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RDVMousePressed
         // TODO add your handling code here:
         ColorPanel2.setBackground(new Color(43,149,113));
         ColorPanel1.setBackground(new Color(58,67,94));
         ColorPanel.setBackground(new Color(58,67,94));
         ColorPanel3.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel2MousePressed
+    }//GEN-LAST:event_RDVMousePressed
 
-    private void GestPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel3MouseEntered
+    private void DeconnexionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeconnexionMouseEntered
         // TODO add your handling code here:
-         GestPanel3.setBackground(new Color(96,112,157));
-    }//GEN-LAST:event_GestPanel3MouseEntered
+         Deconnexion.setBackground(new Color(96,112,157));
+    }//GEN-LAST:event_DeconnexionMouseEntered
 
-    private void GestPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel3MouseExited
+    private void DeconnexionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeconnexionMouseExited
         // TODO add your handling code here:
-            GestPanel3.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel3MouseExited
+            Deconnexion.setBackground(new Color(58,67,94));
+    }//GEN-LAST:event_DeconnexionMouseExited
 
-    private void GestPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel3MousePressed
+    private void DeconnexionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeconnexionMousePressed
         // TODO add your handling code here:
         ColorPanel3.setBackground(new Color(43,149,113));
         ColorPanel1.setBackground(new Color(58,67,94));
         ColorPanel2.setBackground(new Color(58,67,94));
         ColorPanel.setBackground(new Color(58,67,94));
-    }//GEN-LAST:event_GestPanel3MousePressed
+    }//GEN-LAST:event_DeconnexionMousePressed
 
     private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
         // TODO add your handling code here:
@@ -652,10 +677,27 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         this.setLocation(x-xMouse,y-yMouse);
     }//GEN-LAST:event_TopPanelMouseDragged
 
-    private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
+    private void PatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientMouseClicked
         // TDO add your handling code here:
-        panel1.setVisible(true);
-    }//GEN-LAST:event_GestPanelMouseClicked
+        PanelPatient.setVisible(true);
+        PanelAcc.setVisible(false);
+         PanelRdv.setVisible(false);
+        
+    }//GEN-LAST:event_PatientMouseClicked
+
+    private void AccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccueilMouseClicked
+        // TODO add your handling code here:
+         PanelPatient.setVisible(false);
+        PanelAcc.setVisible(true);
+         PanelRdv.setVisible(false);
+    }//GEN-LAST:event_AccueilMouseClicked
+
+    private void RDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RDVMouseClicked
+        // TODO add your handling code here:
+          PanelPatient.setVisible(false);
+        PanelAcc.setVisible(false);
+         PanelRdv.setVisible(true);
+    }//GEN-LAST:event_RDVMouseClicked
 
     /**
      * @param args the command line arguments
@@ -754,18 +796,16 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Accueil;
     private javax.swing.JPanel ColorPanel;
     private javax.swing.JPanel ColorPanel1;
     private javax.swing.JPanel ColorPanel2;
     private javax.swing.JPanel ColorPanel3;
     private javax.swing.JLabel Date;
+    private javax.swing.JPanel Deconnexion;
     private javax.swing.JPanel DynamicPanel;
     private javax.swing.JLabel ExitPanel;
     private javax.swing.JLabel ExitPanel1;
-    private javax.swing.JPanel GestPanel;
-    private javax.swing.JPanel GestPanel1;
-    private javax.swing.JPanel GestPanel2;
-    private javax.swing.JPanel GestPanel3;
     private javax.swing.JLabel ImgLabel;
     private javax.swing.JLabel ImgLabel1;
     private javax.swing.JLabel ImgLabel2;
@@ -774,7 +814,9 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel NpLabel;
     private javax.swing.JLabel NpLabel1;
     private javax.swing.JLabel NpLabel2;
+    private javax.swing.JPanel Patient;
     private javax.swing.JLabel PmAm;
+    private javax.swing.JPanel RDV;
     private javax.swing.JLabel TextLabel;
     private javax.swing.JLabel TextLabel1;
     private javax.swing.JLabel TextLabel2;

@@ -38,26 +38,61 @@ public class daoCompte2 {
            
             
    }
- public String verifierRole(String  login,String table)
+ public String verifierReceptionniste(String login) 
  {
       ResultSet Rs;
-   String r="false";
+
        Statement st;
        try {
             st = Con.createStatement();
-             Rs=st.executeQuery("select * from "+table+" where login="+"'"+login+"'")  ;
+             Rs=st.executeQuery("select * from receptioniste where login='"+login+"'");
        
              
              if(Rs.next())
-                 r=Rs.getString(1);
-            
-            
-              
+                 return Rs.getString(1);
+        
               
         } catch (SQLException ex) {
             Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return r;
+        return "false";
  }
-         
+      public String verifierAdministrateur(String login) 
+ {
+      ResultSet Rs;
+
+       Statement st;
+       try {
+            st = Con.createStatement();
+             Rs=st.executeQuery("select * from administrateur where login='"+login+"'");
+       
+             
+             if(Rs.next())
+                 return Rs.getString(1);
+        
+              
+        } catch (SQLException ex) {
+            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";
+ } 
+            public String verifierDentiste(String login) 
+ {
+      ResultSet Rs;
+
+       Statement st;
+       try {
+            st = Con.createStatement();
+             Rs=st.executeQuery("select * from dentiste where login='"+login+"'");
+       
+             
+             if(Rs.next())
+                 return Rs.getString(1);
+        
+              
+        } catch (SQLException ex) {
+            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "false";
+ } 
 }
