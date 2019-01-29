@@ -82,11 +82,11 @@ public class daoRendezVous {
         ResultSet Rs=null;
         try {
             Statement st=Con.createStatement();
-            Rs=st.executeQuery("select heure, p.nom, p.prenom, d.nom, annulation from Rendez_vous R, patient P, dentiste D "
-                    + "where P.id_patient= R.Id_patient and p.id_dentiste=d.id_employe and R.DateRV='"+d+"'")  ;
+            Rs=st.executeQuery("select heure, p.nom, p.prenom, d.nom, annulation from Rendez_vous R, patient P, dentiste D where P.id_patient= R.Id_patient and p.id_dentiste=d.ID_EMPLOYE"
+                    + " and R.DateRV='"+d+"'")  ;
             
         } catch (SQLException ex) {
-            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Prob here");
         }
         return Rs;
     }
@@ -95,8 +95,20 @@ public class daoRendezVous {
         ResultSet Rs=null;
         try {
             Statement st=Con.createStatement();
-            Rs=st.executeQuery("select heure, p.nom, p.prenom, d.nom, annulation from Rendez_vous R, patient P, dentiste D "
-                    + "where P.id_patient= R.Id_patient and p.id_dentiste=d.id_employe and YEAR(R.DateRV)=YEAR(SYSDATE()) and MONTH(R.DateRV)='"+m+"'")  ;
+            Rs=st.executeQuery("select heure, p.nom, p.prenom, d.nom, annulation from Rendez_vous R, patient P, dentiste D where P.id_patient= R.Id_patient and p.id_dentiste=d.ID_EMPLOYE"
+                    + " and YEAR(R.DateRV)=YEAR(SYSDATE()) and MONTH(R.DateRV)='"+m+"'")  ;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Rs;
+    }
+    public ResultSet ReadToday() 
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select heure, p.nom, p.prenom, d.nom, annulation from Rendez_vous R, patient P, dentiste D where P.id_patient= R.Id_patient and p.id_dentiste=d.ID_employe and R.daterv=DATE(SYSDATE())")  ;
             
         } catch (SQLException ex) {
             Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,27 +122,26 @@ public class daoRendezVous {
         
         try {
             Statement st=Con.createStatement();
-            Rs=st.executeQuery("select COUNT(*) from Rendez_vous ");
+            Rs=st.executeQuery("select COUNT(*) from Rendez_vous where daterv=DATE(SYSDATE())");
             while (Rs.next()) {
             Nb= Rs.getInt(1);
         }
         } catch (SQLException ex) {
               System.err.println(ex.getMessage());
         }
-        System.out.println(Nb);
-        return Nb;
+        return Nb-1;
     }
     
-    public void Update(RendezVous RDV)
+    public void Update(String Nom, String Prenom, Date date, String heure)
     {
         PreparedStatement st;
         try {
-            st = Con.prepareStatement("update Rendez_vous set annulation=? where id_patient=? and daterv=? and heure=?");
-
-            st.setBoolean(1, RDV.isAnnulé());
-            st.setString(2, RDV.getId_P());
-            st.setDate(3, RDV.getDate_rdv());
-            st.setString(4, RDV.getHeure_rdv());
+            st = Con.prepareStatement("update Rendez_vous set Daterv=?,heure=  where Nom=? ");
+//
+//            st.setString(1, );
+//            st.setString(2, );
+//            st.setDate(3, );
+//            st.setString(4, );
             
             st.execute();
 
@@ -138,7 +149,6 @@ public class daoRendezVous {
             System.err.println(ex.getMessage());
         }
     }
-    
 
     public void Delete(String idP, Date daterdv, Date heurerdv) {
         Statement st;
