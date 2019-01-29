@@ -255,6 +255,9 @@ public class AjouterPatient extends javax.swing.JFrame {
         Renitialiser.setBackground(new java.awt.Color(51, 129, 162));
         Renitialiser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Renitialiser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RenitialiserMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 RenitialiserMouseEntered(evt);
             }
@@ -522,6 +525,18 @@ public class AjouterPatient extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void RenitialiserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RenitialiserMouseClicked
+        // TODO add your handling code here:
+        TextNom.setText("");
+        TextPrenom.setText("");
+        TextCin.setText("");
+        TextDn.setDate(null);
+        TextEmail.setText("");
+        TextTs.setText("");
+        TextAdr.setText("");
+        TextTele.setText("");
+    }//GEN-LAST:event_RenitialiserMouseClicked
 
     /**
      * @param args the command line arguments

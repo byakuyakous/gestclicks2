@@ -6,6 +6,7 @@
 package IHM;
 
 import Dao.daoPatient;
+import Metier.PatientExcelModele;
 
 import Metier.PatientModele;
 import static com.sun.javafx.fxml.expression.Expression.set;
@@ -16,11 +17,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import static java.lang.reflect.Array.set;
 import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Cell;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -44,6 +51,7 @@ public class RPatient extends javax.swing.JPanel {
         initComponents();
         AfficherTPatients();
         
+        
     }
 
     public void AfficherTPatients()
@@ -57,11 +65,11 @@ public class RPatient extends javax.swing.JPanel {
        XSSFWorkbook wb=new XSSFWorkbook();
        XSSFSheet ws=wb.createSheet();
        TreeMap<String,Object[]> data=new TreeMap<>();
-       PatientModele pm=new PatientModele(new daoPatient().ReadAll());
-       data.put("-1",new Object[]{pm.getColumnName(0),pm.getColumnName(1),pm.getColumnName(2),pm.getColumnName(3)});
+       PatientExcelModele pm=new PatientExcelModele(new daoPatient().Readall2());
+       data.put("-1",new Object[]{pm.getColumnName(0),pm.getColumnName(1),pm.getColumnName(2),pm.getColumnName(3),pm.getColumnName(4),pm.getColumnName(5),pm.getColumnName(6),pm.getColumnName(7),pm.getColumnName(8),pm.getColumnName(9),pm.getColumnName(10),pm.getColumnName(1),pm.getColumnName(12)});
        for(int i=0;i<pm.getRowCount();i++)
        {
-           data.put(Integer.toString(i),new Object[]{pm.getValueAt(i,0).toString(),pm.getValueAt(i,1).toString(),pm.getValueAt(i,2).toString(),pm.getValueAt(i,3).toString()});
+           data.put(Integer.toString(i),new Object[]{pm.getValueAt(i,0).toString(),pm.getValueAt(i,1).toString(),pm.getValueAt(i,2).toString(),pm.getValueAt(i,3).toString(),pm.getValueAt(i,4).toString(),pm.getValueAt(i,5).toString(),pm.getValueAt(i,6).toString(),pm.getValueAt(i,7).toString(),pm.getValueAt(i,8).toString(),pm.getValueAt(i,9).toString(),pm.getValueAt(i,10).toString(),pm.getValueAt(i,11).toString(),pm.getValueAt(i,12).toString()});
            
        }
        Set<String> ids=data.keySet();
@@ -80,9 +88,14 @@ public class RPatient extends javax.swing.JPanel {
            }
        }
         try {
-            FileOutputStream fos=new FileOutputStream(new File("D:\\EXCEL\\Affichage.xlsx"));
+            long d=new java.util.Date().getTime();
+            
+            FileOutputStream fos=new FileOutputStream(new File("D:\\EXCEL\\Affichage"+d+".xlsx"));
             wb.write(fos);
             fos.close();
+            JOptionPane.showMessageDialog(this, "Exoprtation réussit! URL:D:\\EXCEL\\Affichage"+d+".xlsx");
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler "
+                    +"D:\\EXCEL\\Affichage"+d+".xlsx") ;
         } catch (FileNotFoundException ex) {
            System.out.println(ex);
         } catch (IOException ex) {
@@ -118,6 +131,9 @@ public class RPatient extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
 
         PatientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -291,18 +307,19 @@ public class RPatient extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
                         .addComponent(GestPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
+                        .addGap(108, 108, 108)
                         .addComponent(GestPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(GestPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(GestPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(title)
-                        .addGap(119, 119, 119)))
-                .addGap(6, 6, 6)
+                        .addGap(125, 125, 125)))
                 .addComponent(GestPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -310,7 +327,7 @@ public class RPatient extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(title)
-                .addGap(25, 25, 25)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GestPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -337,7 +354,7 @@ public class RPatient extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -372,9 +389,10 @@ public class RPatient extends javax.swing.JPanel {
 
     private void PatientTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PatientTableMouseClicked
         // TODO add your handling code here:
-        PatientModele model=(PatientModele) PatientTable.getModel();
+        if(evt.getClickCount()==2)
+        { PatientModele model=(PatientModele) PatientTable.getModel();
         int i=PatientTable.getSelectedRow();
-        new AfficherPatient(model.getValueAt(i, 0).toString()).setVisible(true);
+        new AfficherPatient(model.getValueAt(i, 0).toString()).setVisible(true);}
     }//GEN-LAST:event_PatientTableMouseClicked
 
     private void GestPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseClicked
@@ -406,19 +424,16 @@ public class RPatient extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_GestPanel4MouseExited
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GestPanel;
     private javax.swing.JPanel GestPanel1;
     private javax.swing.JPanel GestPanel2;
-    private javax.swing.JPanel GestPanel3;
     private javax.swing.JPanel GestPanel4;
     private javax.swing.JTable PatientTable;
     private javax.swing.JTextField TextRechercher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

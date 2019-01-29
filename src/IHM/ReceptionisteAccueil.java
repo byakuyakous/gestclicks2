@@ -8,6 +8,11 @@ package IHM;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 
 /**
@@ -24,6 +29,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     String idR=null;
     RPatient panel1;
     public ReceptionisteAccueil(String id) {
+        timer();
         idR=id;
         initComponents();
         ColorPanel1.setBackground(new Color(43,149,113));
@@ -34,6 +40,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         c.gridx=c.gridy=0;
         DynamicPanel.add(panel1,c);
         panel1.setVisible(false);
+        
     }
 
     /**
@@ -72,6 +79,9 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         TextLabel3 = new javax.swing.JLabel();
         ImgLabel3 = new javax.swing.JLabel();
         ColorPanel3 = new javax.swing.JPanel();
+        Date = new javax.swing.JLabel();
+        Time = new javax.swing.JLabel();
+        PmAm = new javax.swing.JLabel();
         DynamicPanel = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -436,6 +446,14 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        Date.setForeground(new java.awt.Color(255, 255, 255));
+
+        Time.setForeground(new java.awt.Color(255, 255, 255));
+        Time.setText(" ");
+
+        PmAm.setForeground(new java.awt.Color(255, 255, 255));
+        PmAm.setText("  ");
+
         javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
         LeftPanel.setLayout(LeftPanelLayout);
         LeftPanelLayout.setHorizontalGroup(
@@ -443,20 +461,33 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             .addComponent(GestPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(GestPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(GestPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
-                .addComponent(GestPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NpLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GestPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LeftPanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NpLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(LeftPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(Time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
+                        .addComponent(PmAm, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         LeftPanelLayout.setVerticalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
+                .addGroup(LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Time)
+                    .addComponent(PmAm)
+                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(NpLabel)
@@ -468,7 +499,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addComponent(GestPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(GestPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         DynamicPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -660,12 +691,74 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
             }
         });
     }
+    public void timer(){
+        java.util.Timer timer = new Timer();
+        //Set the schedule function
+        timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    // Magic here
+                    Calendar cal=new GregorianCalendar(Locale.FRANCE);
+                        int month = cal.get(Calendar.MONTH);
+                        int year = cal.get(Calendar.YEAR);
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+                        month++ ;
+                        String jour = ""+day ;
+                        String mois = ""+month;
+        
+                        if(day <10)
+                        {
+                          jour = "0"+day;
+                        }
+                        if (month <10)
+                        {
+                        mois = "0"+month;
+                        }
+        
+       
+                        Date.setText("Date : "+jour + "/" + mois + "/" + year );
+        
+                        int seconde = cal.get(Calendar.SECOND);
+                        int minute = cal.get(Calendar.MINUTE);
+                        int heure = cal.get(Calendar.HOUR);
+                        String sec=""+seconde;
+                        String min =""+minute;
+                        String hour =""+heure;
+                        if(seconde <10)
+                        {
+                          sec = "0"+seconde;
+                        }
+                        if(heure <10)
+                        {
+                          hour = "0"+hour;
+                        }
+                        if(minute <10)
+                        {
+                          min = "0"+minute;
+                        }
+                        
+        
+                        Time.setText("Time : " +hour+":"+min+":"+sec );
+        
+                        if (cal.get(Calendar.AM_PM)==Calendar.PM)
+                        {
+                            PmAm.setText("PM");
+                        }
+                        else{
+                            PmAm.setText("AM");
+                        }
+                                }
+                            },
+                0, 1000);
+                    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ColorPanel;
     private javax.swing.JPanel ColorPanel1;
     private javax.swing.JPanel ColorPanel2;
     private javax.swing.JPanel ColorPanel3;
+    private javax.swing.JLabel Date;
     private javax.swing.JPanel DynamicPanel;
     private javax.swing.JLabel ExitPanel;
     private javax.swing.JLabel ExitPanel1;
@@ -681,10 +774,12 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel NpLabel;
     private javax.swing.JLabel NpLabel1;
     private javax.swing.JLabel NpLabel2;
+    private javax.swing.JLabel PmAm;
     private javax.swing.JLabel TextLabel;
     private javax.swing.JLabel TextLabel1;
     private javax.swing.JLabel TextLabel2;
     private javax.swing.JLabel TextLabel3;
+    private javax.swing.JLabel Time;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

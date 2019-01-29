@@ -67,10 +67,11 @@ public class Connexion extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(36, 47, 65));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TextLogin.setForeground(new java.awt.Color(51, 129, 162));
+        TextLogin.setBackground(new java.awt.Color(36, 47, 65));
+        TextLogin.setForeground(new java.awt.Color(255, 255, 255));
         TextLogin.setBorder(null);
         TextLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +88,8 @@ public class Connexion extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(51, 129, 162));
         jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 300, -1));
 
-        TextPassword.setForeground(new java.awt.Color(51, 129, 162));
+        TextPassword.setBackground(new java.awt.Color(36, 47, 65));
+        TextPassword.setForeground(new java.awt.Color(255, 255, 255));
         TextPassword.setToolTipText("");
         TextPassword.setBorder(null);
         TextPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -99,44 +101,56 @@ public class Connexion extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(51, 129, 162));
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Mot de passe");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 130, -1));
 
         jLabel4.setBackground(new java.awt.Color(51, 129, 162));
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Login");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 70, -1));
 
-        ComboRole.setBackground(new java.awt.Color(51, 129, 162));
+        ComboRole.setBackground(new java.awt.Color(36, 47, 65));
         ComboRole.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        ComboRole.setForeground(new java.awt.Color(36, 47, 65));
         ComboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Récéptionniste", "Dentiste", "Administrateur" }));
         ComboRole.setAlignmentX(8.0F);
         ComboRole.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 129, 162)));
         ComboRole.setOpaque(false);
         jPanel4.add(ComboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 310, 30));
 
+        jPanel1.setBackground(new java.awt.Color(51, 129, 162));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel5.setText("Annuler");
+        jLabel5.setText(" Annuler");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel5)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 130, 40));
+        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 120, 40));
 
+        jPanel2.setBackground(new java.awt.Color(51, 129, 162));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,17 +165,17 @@ public class Connexion extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(23, 23, 23))
+                .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 130, 40));
@@ -225,6 +239,11 @@ public class Connexion extends javax.swing.JFrame {
               
          }
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments
