@@ -61,12 +61,40 @@ public class daoPatient {
         ResultSet Rs=null;
         try {
             Statement st=Con.createStatement();
-            Rs=st.executeQuery("select id_patient,nom,prenom,telephone,id_dentiste from patient ")  ;
+            Rs=st.executeQuery("select cin,nom,prenom,telephone,nom,prenom from patient ")  ;
             
         } catch (SQLException ex) {
             Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Rs;
+    }
+    //lecture pour affichage Ajout RDV receptionniste 
+    public ResultSet ReadShort()
+    {    
+        ResultSet Rs=null;
+        try {
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select cin,nom,prenom from patient ")  ;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(daoPatient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Rs;
+    }
+    public String ReadIDBYCIN(String CIN)
+    {    
+        ResultSet Rs=null;
+        String ID="";
+        try {
+            Statement st=Con.createStatement();
+            Rs=st.executeQuery("select Id_patient from patient where CIN='"+CIN+"'");
+            while (Rs.next()) {
+            ID=Rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ID by cin patient in add rdv doesnt work");
+        }
+        return ID;
     }
     public void Update(Patient P)
     {
@@ -102,6 +130,5 @@ public class daoPatient {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-    }
-    
+    }  
 }

@@ -19,7 +19,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
     GridBagLayout layout = new GridBagLayout();
-    DOperation Doperation = new DOperation();
+    //DOperation Doperation = new DOperation();
     DDefaut Ddefault = new DDefaut();
     /**
      * Creates new form Dentiste
@@ -34,7 +34,7 @@ public class DentisteAccueil extends javax.swing.JFrame {
         c.gridx=0;
         c.gridy=0;
         DynamicPanel.add(Ddefault, c);
-        DynamicPanel.add(Doperation, c);
+        //DynamicPanel.add(Doperation, c);
         Ddefault.setVisible(true);
     }
 
@@ -615,12 +615,12 @@ public class DentisteAccueil extends javax.swing.JFrame {
 
     private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
         Ddefault.setVisible(false);
-        Doperation.setVisible(true);
+        //Doperation.setVisible(true);
     }//GEN-LAST:event_GestPanelMouseClicked
 
     private void GestPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseClicked
         Ddefault.setVisible(true);
-        Doperation.setVisible(false);
+       // Doperation.setVisible(false);
     }//GEN-LAST:event_GestPanel1MouseClicked
 
     /**

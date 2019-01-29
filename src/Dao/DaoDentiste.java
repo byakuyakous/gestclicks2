@@ -66,6 +66,21 @@ public class DaoDentiste {
             System.err.println("Requete afficher erronnée !! "+ ex.getMessage());
         }
     }
+    //Inas: ceci est temporaire because I dont have classe smitha Dentiste, needed in ComboRDV
+    public  ResultSet Lister(){
+        ResultSet Res=null;
+        try
+        {
+            St = Con.createStatement();
+            Res=St.executeQuery("Select * from dentiste;");
+            
+        }
+        catch (SQLException ex) 
+        {
+            System.err.println("Requete afficher erronnée !! "+ ex.getMessage());
+        }
+        return Res;
+    }
     
     public void Supprimer(String id)
     {

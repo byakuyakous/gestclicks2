@@ -5,9 +5,14 @@
  */
 package IHM;
 
+import Dao.daoRendezVous;
+import Metier.RendezVousModele;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFrame;
 
 /**
@@ -21,18 +26,37 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
      */
     int xMouse;
     int yMouse;
+    RAccueil panel0;
     RPatient panel1;
+    RRDV panel2;
     public ReceptionisteAccueil() {
         initComponents();
         ColorPanel1.setBackground(new Color(43,149,113));
         this.setLocationRelativeTo(null);
-        panel1=new RPatient();
+        
+
+        
         DynamicPanel.setLayout(new GridBagLayout());
         GridBagConstraints c=new GridBagConstraints();
         c.gridx=c.gridy=0;
+        
+        panel0=new RAccueil();
+        DynamicPanel.add(panel0,c);
+        panel0.setVisible(true);
+        
+        panel1=new RPatient();
+        
+        
         DynamicPanel.add(panel1,c);
         panel1.setVisible(false);
+        
+        panel2=new RRDV();
+        DynamicPanel.add(panel2,c);
+        panel2.setVisible(false);
+        
+        
     }
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +95,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         ImgLabel3 = new javax.swing.JLabel();
         ColorPanel3 = new javax.swing.JPanel();
         DynamicPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,7 +207,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
                 .addComponent(NpLabel1)
                 .addGap(0, 0, 0)
                 .addComponent(NpLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 503, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -268,6 +293,9 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
 
         GestPanel1.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanel1MouseEntered(evt);
             }
@@ -324,6 +352,9 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
 
         GestPanel2.setBackground(new java.awt.Color(58, 67, 94));
         GestPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GestPanel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 GestPanel2MouseEntered(evt);
             }
@@ -475,11 +506,17 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         DynamicPanel.setLayout(DynamicPanelLayout);
         DynamicPanelLayout.setHorizontalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(DynamicPanelLayout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DynamicPanelLayout.setVerticalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(DynamicPanelLayout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -620,9 +657,23 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TopPanelMouseDragged
 
     private void GestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanelMouseClicked
-        // TDO add your handling code here:
+        // TODO add your handling code here:
+        panel0.setVisible(false);
+        panel2.setVisible(false);
         panel1.setVisible(true);
     }//GEN-LAST:event_GestPanelMouseClicked
+
+    private void GestPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel2MouseClicked
+        // TODO add your handling code here:
+        panel0.setVisible(false);
+        panel2.setVisible(true);
+    }//GEN-LAST:event_GestPanel2MouseClicked
+
+    private void GestPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GestPanel1MouseClicked
+        // TODO add your handling code here:
+        panel2.setVisible(false); 
+        panel0.setVisible(true);
+    }//GEN-LAST:event_GestPanel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -654,7 +705,9 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReceptionisteAccueil().setVisible(true);
+//                new ReceptionisteAccueil().setVisible(true);
+                ReceptionisteAccueil RA = new ReceptionisteAccueil();
+                RA.setVisible(true);   
             }
         });
     }
@@ -685,6 +738,7 @@ public class ReceptionisteAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel TextLabel3;
     private javax.swing.JPanel TopPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

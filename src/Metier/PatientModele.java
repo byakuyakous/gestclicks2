@@ -52,7 +52,7 @@ public class PatientModele extends AbstractTableModel {
        }
    }   
    catch(SQLException Ex){
-    System.err.println("Erreure classe MonModele");   
+    System.err.println("Erreur classe MonModele");   
    }
   }
 

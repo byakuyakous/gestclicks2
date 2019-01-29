@@ -17,7 +17,7 @@ public class Réceptionniste extends Employé {
         super(id, login, cin, nom, prenom, sexe, tél, email, date_naissance, date_embauche);
     }
     
-    //les fonctionalités 
+  
 
     public String getIdE() {
         return idE;
@@ -102,5 +102,14 @@ public class Réceptionniste extends Employé {
     public void AjouterPatient(Patient P)
     {
         
+    }
+    public void CreerRDV(){
+    
+    }
+    public void ModifierRDV(){
+    // use set of RDV
+    }
+    public void AnnulerRDV(/*id RDV*/){
+        // RDV setAnnulé
     }
 }
