@@ -16,6 +16,10 @@ import java.sql.ResultSet;
  */
 public class AListeCompte extends javax.swing.JPanel {
     DaoCompte DC = new DaoCompte();
+    DaoAdmin DAdmin = new DaoAdmin();
+    DaoReceptionniste DRecep = new DaoReceptionniste();
+    DaoDentiste DDent = new DaoDentiste();
+    AModifierCompte panelModif;
     
 
     
@@ -26,7 +30,7 @@ public class AListeCompte extends javax.swing.JPanel {
     
     public void Affichage() {
         ResultSet Rs = DC.AfficherListeCompte();
-        jTable1.setModel(new CompteModel(Rs));   
+        tableCompte.setModel(new CompteModel(Rs));   
     }
 
     /** This method is called from within the constructor to
@@ -39,14 +43,16 @@ public class AListeCompte extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        panelModifier = new javax.swing.JPanel();
+        tableCompte = new javax.swing.JTable();
+        panelActualiser = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         panelSupprimer = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        labelSearch = new javax.swing.JLabel();
+        txtRecherche = new javax.swing.JTextField();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableCompte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -57,33 +63,36 @@ public class AListeCompte extends javax.swing.JPanel {
                 "Nom", "Prenom", "Login", "MDP", "Admin resp"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel1.setText("Liste des comptes");
-
-        panelModifier.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelModifier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelModifier.setPreferredSize(new java.awt.Dimension(120, 30));
-        panelModifier.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableCompte.setGridColor(new java.awt.Color(255, 255, 255));
+        tableCompte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelModifierMouseClicked(evt);
+                tableCompteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableCompte);
+
+        panelActualiser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelActualiser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelActualiser.setPreferredSize(new java.awt.Dimension(120, 30));
+        panelActualiser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelActualiserMouseClicked(evt);
             }
         });
 
-        jLabel19.setText("Modifier");
+        jLabel19.setText(" Actualiser");
 
-        javax.swing.GroupLayout panelModifierLayout = new javax.swing.GroupLayout(panelModifier);
-        panelModifier.setLayout(panelModifierLayout);
-        panelModifierLayout.setHorizontalGroup(
-            panelModifierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModifierLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+        javax.swing.GroupLayout panelActualiserLayout = new javax.swing.GroupLayout(panelActualiser);
+        panelActualiser.setLayout(panelActualiserLayout);
+        panelActualiserLayout.setHorizontalGroup(
+            panelActualiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActualiserLayout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
-        panelModifierLayout.setVerticalGroup(
-            panelModifierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelActualiserLayout.setVerticalGroup(
+            panelActualiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
 
@@ -112,6 +121,14 @@ public class AListeCompte extends javax.swing.JPanel {
             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel22.setText("Liste des Comptes");
+
+        labelSearch.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        labelSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/lp.png"))); // NOI18N
+
+        txtRecherche.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,56 +137,91 @@ public class AListeCompte extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(245, 245, 245)
-                        .addComponent(panelModifier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelActualiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(panelSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(267, Short.MAX_VALUE))
+                        .addComponent(panelSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(263, 263, 263)
+                        .addComponent(txtRecherche, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelSearch)))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelSupprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelModifier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelActualiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void panelModifierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelModifierMouseClicked
-       
-    }//GEN-LAST:event_panelModifierMouseClicked
+    private void panelActualiserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelActualiserMouseClicked
+        Affichage();      
+    }//GEN-LAST:event_panelActualiserMouseClicked
 
     private void panelSupprimerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSupprimerMouseClicked
-        int row = jTable1.getSelectedRow();
+        int row = tableCompte.getSelectedRow();
         if (row != -1) {
-        String LOGIN = jTable1.getValueAt(row, 2).toString();
-        String ID = DC.ReturnIdEmploye(LOGIN);
-        
-        DC.Supprimer(LOGIN);
-        
-        
-        
+        String LOGIN = tableCompte.getValueAt(row, 2).toString();
+        DC.Supprimer(LOGIN); // cascade
+        Affichage();
+//        String ID = DC.ReturnIdEmploye(LOGIN);
+//        String type = DC.TypeEmploye(ID);
+//        System.out.println("type = "+type);
+//        if (type=="Dentiste") {  DDent.Supprimer(ID); 
+//                                 DC.Supprimer(LOGIN);
+//                                 Affichage(); }
+//        if (type=="Receptionniste") { DRecep.Supprimer(ID);
+//                                      DC.Supprimer(LOGIN);
+//                                        Affichage(); }
+//        if (type=="Administrateur") { DAdmin.Supprimer(ID);
+//                                        DC.Supprimer(LOGIN);
+//                                        Affichage(); }        
         }
     }//GEN-LAST:event_panelSupprimerMouseClicked
 
+    private void tableCompteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCompteMouseClicked
+        if (evt.getClickCount() == 2) {  
+                    int row = tableCompte.getSelectedRow();
+                    if (row != -1) { 
+                    String Login=tableCompte.getValueAt(row, 2).toString();
+                    panelModif=new AModifierCompte(Login);  
+                    panelModif.setVisible(true);                    
+                    } 
+                    
+        }
+    }//GEN-LAST:event_tableCompteMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JPanel panelModifier;
+    private javax.swing.JLabel labelSearch;
+    private javax.swing.JPanel panelActualiser;
     private javax.swing.JPanel panelSupprimer;
+    private javax.swing.JTable tableCompte;
+    private javax.swing.JTextField txtRecherche;
     // End of variables declaration//GEN-END:variables
 
 }

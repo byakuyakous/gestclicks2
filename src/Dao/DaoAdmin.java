@@ -27,20 +27,21 @@ public class DaoAdmin {
         Con= dao.seConnecter();
     }
     
-    public void Ajouter(String ID_EMPLOYE, String LOGIN, String CIN, String NOM, String PRENOM, String SEXE, String TELEPHONE, String EMAIL, Date DATE_NAISSANCE,Date DATE__D_EMBAUCHE)
+    public void Ajouter(String ID_EMPLOYE, String LOGIN, String CIN, String NOM, String PRENOM, String SEXE, String ADRESSE, String TELEPHONE, String EMAIL, Date DATE_NAISSANCE,Date DATE_EMBAUCHE)
     {
         try{
-            PreparedStatement pst = Con.prepareStatement("insert into administrateur values(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = Con.prepareStatement("insert into administrateur values(?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, ID_EMPLOYE);
             pst.setString(2, LOGIN);
             pst.setString(3, CIN);
             pst.setString(4, NOM);
             pst.setString(5, PRENOM);
             pst.setString(6, SEXE);
-            pst.setString(7, TELEPHONE);
-            pst.setString(8, EMAIL);
-            pst.setDate(9, DATE_NAISSANCE);
-            pst.setDate(10, DATE__D_EMBAUCHE);
+            pst.setString(7, ADRESSE);
+            pst.setString(8, TELEPHONE);
+            pst.setString(9, EMAIL);
+            pst.setDate(10, DATE_NAISSANCE);
+            pst.setDate(11, DATE_EMBAUCHE);
             pst.executeUpdate();
             System.out.println("Requete executée avec succes ! ");
         }
@@ -68,32 +69,31 @@ public class DaoAdmin {
     {
         try
         {
-        PreparedStatement pst = Con.prepareStatement("delete from administrateur where ID_EMPLOYE=?");
+        PreparedStatement pst = Con.prepareStatement("delete from administrateur where ID_ADMIN=?");
         pst.setString(1, id);
         pst.executeUpdate();
-        System.out.println("Suppression effectuée avec succes!  ");
+        System.out.println("Suppression de l'admin effectuée avec succes!  ");
         }
         catch(SQLException ex)
         {
-             System.err.println("supprimer a generé des erreurs !! "+ ex.getMessage());
+             System.err.println("supprimer l'admin a generé des erreurs !! "+ ex.getMessage());
         }
     }
     
-    public void Modifier(String ID_EMPLOYE, String LOGIN, String CIN, String NOM, String PRENOM, String SEXE, String TELEPHONE, String EMAIL, Date DATE_NAISSANCE,Date DATE__D_EMBAUCHE)
+    public void Modifier(String ID_EMPLOYE, String CIN, String NOM, String PRENOM, String SEXE, String ADRESSE, String TELEPHONE, String EMAIL, Date DATE_NAISSANCE)
     {
         try
         {
-        PreparedStatement pst = Con.prepareStatement("update administrateur set LOGIN=?, CIN=?, NOM=?, PRENOM=?, SEXE=?, TELEPHONE=? ,EMAIL=?,DATE_NAISSANCE=?, DATE__D_EMBAUCHE=? where ID_EMPLOYE=?");
-            pst.setString(1, LOGIN);
-            pst.setString(2, CIN);
-            pst.setString(3, NOM);
-            pst.setString(4, PRENOM);
-            pst.setString(5, SEXE);
+        PreparedStatement pst = Con.prepareStatement("update administrateur set CIN=? , NOM=? , PRENOM=? , SEXE=? , ADRESSE=? , TELEPHONE=? , EMAIL=? , DATE_NAISSANCE=? where ID_ADMIN=?");
+            pst.setString(1, CIN);
+            pst.setString(2, NOM);
+            pst.setString(3, PRENOM);
+            pst.setString(4, SEXE);
+            pst.setString(5, ADRESSE); 
             pst.setString(6, TELEPHONE);
             pst.setString(7, EMAIL);
             pst.setDate(8, DATE_NAISSANCE);
-            pst.setDate(9, DATE__D_EMBAUCHE);
-            pst.setString(10, ID_EMPLOYE);
+            pst.setString(9, ID_EMPLOYE);
         
         pst.executeUpdate();
         System.out.println("Mise a jour effectuée avec succes!  ");
@@ -107,7 +107,7 @@ public class DaoAdmin {
     public ResultSet Afficher_by_ID(String id){
         ResultSet Res=null;
         try{
-            PreparedStatement Pst = Con.prepareStatement("select * from administrateur where ID_EMPLOYE=?");
+            PreparedStatement Pst = Con.prepareStatement("select * from administrateur where ID_ADMIN=?");
             Pst.setString(1,id);
             Res = Pst.executeQuery();
             System.out.println("Affichage de l'administrateur numero : "+ id +": ");

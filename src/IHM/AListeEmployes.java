@@ -11,6 +11,7 @@ import Dao.DaoReceptionniste;
 import Dao.DaoDentiste;
 import Metier.CompteModel;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Yashida
@@ -21,13 +22,12 @@ public class AListeEmployes extends javax.swing.JPanel {
     DaoAdmin DAdmin = new DaoAdmin();
     DaoReceptionniste DRecep = new DaoReceptionniste();
     DaoDentiste DDent = new DaoDentiste();
+    AModifierEmploye panelModif;
     
     public AListeEmployes() {
         initComponents();
         AffichageAdmin();
     }
-    
-//    String S = combo.getSelectedItem();
     
           
     public void AffichageAdmin() {
@@ -55,23 +55,35 @@ public class AListeEmployes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableEmploye = new javax.swing.JTable();
         jComboBoxChoixEmploye = new javax.swing.JComboBox<>();
-        panelModifier = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
         panelSupprimer = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
+        panelActualiser = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        labelSearch = new javax.swing.JLabel();
+        txtRecherche = new javax.swing.JTextField();
 
         tableEmploye.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nom", "Prénom", "CIN", "Login", "Sexe", "Date de Naissance", "Téléphone", "E-mail", "Date d'embauche"
+                "ID", "Nom", "Prénom", "CIN", "Login", "Sexe", "Adresse", "Date de Naissance", "Téléphone", "E-mail", "Date d'embauche"
             }
         ));
+        tableEmploye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableEmployeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableEmploye);
+        if (tableEmploye.getColumnModel().getColumnCount() > 0) {
+            tableEmploye.getColumnModel().getColumn(5).setResizable(false);
+            tableEmploye.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         jComboBoxChoixEmploye.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrateurs", "Dentistes", "Réceptionnistes" }));
         jComboBoxChoixEmploye.addActionListener(new java.awt.event.ActionListener() {
@@ -79,31 +91,6 @@ public class AListeEmployes extends javax.swing.JPanel {
                 jComboBoxChoixEmployeActionPerformed(evt);
             }
         });
-
-        panelModifier.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelModifier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        panelModifier.setPreferredSize(new java.awt.Dimension(120, 30));
-        panelModifier.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelModifierMouseClicked(evt);
-            }
-        });
-
-        jLabel19.setText("Modifier");
-
-        javax.swing.GroupLayout panelModifierLayout = new javax.swing.GroupLayout(panelModifier);
-        panelModifier.setLayout(panelModifierLayout);
-        panelModifierLayout.setHorizontalGroup(
-            panelModifierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModifierLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
-        panelModifierLayout.setVerticalGroup(
-            panelModifierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-        );
 
         panelSupprimer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelSupprimer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -127,8 +114,41 @@ public class AListeEmployes extends javax.swing.JPanel {
         );
         panelSupprimerLayout.setVerticalGroup(
             panelSupprimerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
+
+        panelActualiser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelActualiser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panelActualiser.setPreferredSize(new java.awt.Dimension(120, 30));
+        panelActualiser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelActualiserMouseClicked(evt);
+            }
+        });
+
+        jLabel25.setText("Actualiser");
+
+        javax.swing.GroupLayout panelActualiserLayout = new javax.swing.GroupLayout(panelActualiser);
+        panelActualiser.setLayout(panelActualiserLayout);
+        panelActualiserLayout.setHorizontalGroup(
+            panelActualiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelActualiserLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelActualiserLayout.setVerticalGroup(
+            panelActualiserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+        );
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel22.setText("Liste des Employés");
+
+        labelSearch.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        labelSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/lp.png"))); // NOI18N
+
+        txtRecherche.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,83 +158,108 @@ public class AListeEmployes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jComboBoxChoixEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(257, 257, 257)
+                        .addComponent(panelActualiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(panelModifier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(panelSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(268, Short.MAX_VALUE))
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(jComboBoxChoixEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167)
+                        .addComponent(txtRecherche, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelSearch)))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBoxChoixEmploye, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxChoixEmploye)
+                        .addComponent(jLabel22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSupprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelModifier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelActualiser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxChoixEmployeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxChoixEmployeActionPerformed
         // if var = receptionneist faire afficher recep ...
-        String S = (String)jComboBoxChoixEmploye.getSelectedItem();
-        if (S=="Dentistes") AffichageDentiste();
-        if (S=="Réceptionnistes") AffichageReceptionniste();
-        if (S=="Administrateurs") AffichageAdmin();
+        String type = (String)jComboBoxChoixEmploye.getSelectedItem();
+        if (type=="Dentistes") AffichageDentiste();
+        if (type=="Réceptionnistes") AffichageReceptionniste();
+        if (type=="Administrateurs") AffichageAdmin();
     }//GEN-LAST:event_jComboBoxChoixEmployeActionPerformed
 
-    private void panelModifierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelModifierMouseClicked
-                  int row = tableEmploye.getSelectedRow();
-                    if (row != -1) { 
-                    String ID_EMPLOYE=tableEmploye.getValueAt(row, 0).toString();
-                    String LOGIN=tableEmploye.getValueAt(row, 1).toString();
-                    String CIN=tableEmploye.getValueAt(row, 2).toString();
-                    String NOM=tableEmploye.getValueAt(row, 3).toString();
-                    String PRENOM=tableEmploye.getValueAt(row, 4).toString();
-                    String SEXE=tableEmploye.getValueAt(row, 5).toString();
-                    String TELEPHONE=tableEmploye.getValueAt(row, 6).toString();
-                    String EMAIL=tableEmploye.getValueAt(row, 7).toString();
-                    String DATE_NAISSANCE=tableEmploye.getValueAt(row, 8).toString();
-                    String DATE__D_EMBAUCHE=tableEmploye.getValueAt(row, 9).toString();
-
-                    }
-     
-    }//GEN-LAST:event_panelModifierMouseClicked
-
     private void panelSupprimerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSupprimerMouseClicked
+        int reponse = JOptionPane.showConfirmDialog(null, "êtes-vous sûr de vouloir continuer", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
+       if (reponse==JOptionPane.YES_OPTION){
         int row = tableEmploye.getSelectedRow();
         if (row != -1) {String ID_EMPLOYE=tableEmploye.getValueAt(row, 0).toString();
                         String LOGIN=tableEmploye.getValueAt(row, 1).toString();
-            String S = (String)jComboBoxChoixEmploye.getSelectedItem();
-             if (S=="Dentistes") {  DDent.Supprimer(ID_EMPLOYE); 
+            String type = (String)jComboBoxChoixEmploye.getSelectedItem();
+             if (type=="Dentistes") {  DDent.Supprimer(ID_EMPLOYE); 
                                     DCompte.Supprimer(LOGIN);
                                     AffichageDentiste();
              }
-             if (S=="Réceptionnistes") { DRecep.Supprimer(ID_EMPLOYE);
+             if (type=="Réceptionnistes") { DRecep.Supprimer(ID_EMPLOYE);
                                          DCompte.Supprimer(LOGIN);
                                          AffichageReceptionniste();}
-             if (S=="Administrateurs") { DAdmin.Supprimer(ID_EMPLOYE);
+             if (type=="Administrateurs") { DAdmin.Supprimer(ID_EMPLOYE);
                                          DCompte.Supprimer(LOGIN);
                                          AffichageAdmin();}
             }
-    
+       }
     }//GEN-LAST:event_panelSupprimerMouseClicked
+
+    private void tableEmployeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEmployeMouseClicked
+
+        if (evt.getClickCount() == 2) {  
+            String type = (String)jComboBoxChoixEmploye.getSelectedItem();
+                  int row = tableEmploye.getSelectedRow();
+                    if (row != -1) { 
+                    String ID_EMPLOYE=tableEmploye.getValueAt(row, 0).toString();
+                    panelModif=new AModifierEmploye(type,ID_EMPLOYE);  
+                    panelModif.setVisible(true);                    
+                    } 
+                    
+        }
+    }//GEN-LAST:event_tableEmployeMouseClicked
+
+    private void panelActualiserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelActualiserMouseClicked
+        // TODO add your handling code here:
+         String type = (String)jComboBoxChoixEmploye.getSelectedItem();
+        if (type=="Dentistes") AffichageDentiste();
+        if (type=="Réceptionnistes") AffichageReceptionniste();
+        if (type=="Administrateurs") AffichageAdmin();
+    }//GEN-LAST:event_panelActualiserMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxChoixEmploye;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel panelModifier;
+    private javax.swing.JLabel labelSearch;
+    private javax.swing.JPanel panelActualiser;
     private javax.swing.JPanel panelSupprimer;
     private javax.swing.JTable tableEmploye;
+    private javax.swing.JTextField txtRecherche;
     // End of variables declaration//GEN-END:variables
 }
